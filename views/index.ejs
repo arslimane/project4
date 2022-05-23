@@ -1,0 +1,266 @@
+<%-include("header.ejs") %>
+
+               <div class="top-category section-padding mb-4">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="main-title">
+                           <div class="btn-group float-right right-action">
+                              <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
+                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
+                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
+                              </div>
+                           </div>
+                           <h6>Channels Categories</h6>
+                        </div>
+                     </div>
+                     <div id="here" class="col-md-12">
+                        
+
+                           
+                           
+                           
+                           
+                           
+                           
+                          
+                          
+                           
+                           
+                        </div>
+                     
+                  </div>
+               </div>
+               <hr>
+               <div class="video-block section-padding">
+                  <div id="ch" class="row">
+                     <div  class="col-md-12">
+                        <div class="main-title">
+                           <div class="btn-group float-right right-action">
+                              <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
+                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
+                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
+                              </div>
+                           </div>
+                           <h6>Live Channels</h6>
+                        </div>
+                     </div>
+                    
+                     
+                     
+                     
+                    
+                   
+                  
+                  </div>
+               </div>
+               <hr class="mt-0">
+               
+     
+     
+    
+     
+            </div>
+
+               
+              
+
+
+               
+      
+          
+
+      <!-- Custom scripts for all pages-->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Core plugin JavaScript-->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      <!-- Owl Carousel -->
+      <script src="vendor/owl-carousel/owl.carousel.js"></script>
+      <script type="module" defer>
+          
+         // Import the functions you need from the SDKs you need
+         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+         // TODO: Add SDKs for Firebase products that you want to use
+         // https://firebase.google.com/docs/web/setup#available-libraries
+       
+         // Your web app's Firebase configuration
+         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+         const firebaseConfig = {
+           apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
+           authDomain: "ezlive-3de45.firebaseapp.com",
+           databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
+           projectId: "ezlive-3de45",
+           storageBucket: "ezlive-3de45.appspot.com",
+           messagingSenderId: "307117333023",
+           appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
+           measurementId: "G-L3YF1HP60C"
+         };
+       
+         // Initialize Firebase
+         const app = initializeApp(firebaseConfig);
+         const analytics = getAnalytics(app);
+         import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+         const db=getDatabase();
+      
+       function getCategory(){
+          const dbref=ref(db);
+          get(child(dbref, "category")). then((snapshot)=>{
+             if(snapshot!=null){
+      
+                var channel=snapshot.val();
+             
+                var divm=document.getElementById("here");
+                var div=document.createElement("div");
+                div.setAttribute("class","owl-carousel owl-carousel-category owl-theme");
+
+               
+              
+      
+         for(var i=0;i<Object.values(channel).length;i++){
+           
+        var owlitem=document.createElement("div");
+        var categoryitem=document.createElement("div");
+        categoryitem.setAttribute("class","category-item");
+        owlitem.setAttribute("class","owl-item");
+        owlitem.setAttribute("style","width: 247px;");
+        var item=document.createElement("div");
+        item.setAttribute("class","item");
+        var a=document.createElement("a");
+        a.setAttribute("href","#");
+        var img=document.createElement("img");
+        img.setAttribute("class","img-fluid");
+        img.setAttribute("src","img/s1.png");
+        img.setAttribute("alt","");
+      
+        var h=document.createElement("h6");
+        var p=document.createElement("p");
+       
+        p.innerText=Object.values(channel)[i]["views"]+" views";
+        h.innerText=Object.values(channel)[i]["name"];
+        a.append(img);
+        a.append(h);
+        a.append(p);
+        categoryitem.append(a);
+        item.append(categoryitem);
+        owlitem.append(item);
+        div.append(owlitem);
+            
+            
+         
+      
+         }
+         divm.append(div);
+         var objowlcarousel = $(".owl-carousel-category");
+        if (objowlcarousel.length > 0) {
+	        objowlcarousel.owlCarousel({
+		       items:8 ,
+		       lazyLoad: true,
+		       pagination: false,
+		       loop: true,
+		       autoPlay: 2000,
+		       navigation: true,
+		       stopOnHover: true,
+		       navigationText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"]
+	});
+  }
+         
+     
+              
+             }else{
+               console.log("snap does not exist");
+             }
+             
+                
+               
+       });
+      }
+
+
+
+      
+      
+      
+      
+      
+      getCategory();
+
+      function getChannel(){
+         const dbref=ref(db);
+          get(child(dbref, "channels")). then((snapshot)=>{
+             if(snapshot!=null){
+      
+                var channel=snapshot.val();
+                var div1=document.getElementById("ch");
+             
+               for(var j=0;j<Object.values(channel).length;j++){
+                  if(Object.values(channel)[j]["state"]==true){
+                  var divcol=document.createElement("div");
+                  divcol.setAttribute("class","col-xl-3 col-sm-6 mb-3");
+                  var divcard=document.createElement("div");
+                  divcard.setAttribute("class","video-card");
+                  var divcardimage=document.createElement("div");
+                  divcardimage.setAttribute("class","video-card-image");
+                  var play=document.createElement("a");
+                  play.setAttribute("class","play-icon");
+                  play.setAttribute("href","https://localhost:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]);
+                  var i=document.createElement("i");
+                  i.setAttribute("class","fas fa-play-circle");
+                  play.append(i);
+                  var a=document.createElement("a");
+                  a.setAttribute("href","https://localhost:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]);
+                  var img=document.createElement("img");
+                  img.setAttribute("class","img-fluid");
+                  img.setAttribute("src","img/v4.png");
+                  a.append(img);
+                  divcardimage.append(play);
+                  divcardimage.append(a);
+                  divcard.append(divcardimage);
+                  divcol.append(divcard);
+
+                  var divbody=document.createElement("div");
+                  divbody.setAttribute("class","video-card-body");
+                  var divtitle=document.createElement("div");
+                  divtitle.setAttribute("class","video-title");
+                  divtitle.innerHTML="<a href='#'>"+Object.values(channel)[j]["channel-name"]+"</a>";
+
+                  divbody.append(divtitle);
+
+                  var divsc=document.createElement("div");
+                  divsc.setAttribute("class","video-page text-success");
+                  divsc.innerHTML=Object.values(channel)[j]["categories"]+'  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>'
+                  divbody.append(divsc);
+                  divcard.append(divbody);
+                  
+                  console.log(divcol);
+                  div1.append(divcol);
+                  }
+
+
+
+                  
+
+               }
+             }
+      })
+   }
+      getChannel();
+      
+      
+      
+      
+      
+       </script>
+        <%-include("footer.ejs") %>
+      
+      
+               
+   

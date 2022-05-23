@@ -1,0 +1,27 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+ 
+  <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js" defer ></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="receive.js" defer></script>
+  <title>reciver</title>
+  <style>
+   
+    video {
+      width:50%;
+      height:50%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <video   id="video-recived" autoplay></video>
+  <button id="click">play</button>
+  <script>
+    var streamerid=prompt("write id");
+    startv(streamerid);
+  </script>
+</body>
+</html>
