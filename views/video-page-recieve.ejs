@@ -5,14 +5,17 @@
                      <div class="col-lg-12">
                         <div class="single-video-left">
                            <div class="single-video">
-                              <video  id="video-recived" width="1000" height="500" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></video>
+                              <video  id="video-recived" width="1000" height="500" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen autoplay></video>
                            </div>
                           
                            <div class="single-video-author box mb-3">
-                              <div class="float-right"><button id="play" class="btn btn-success" type="button">Play </button></div>
-                              <img class="img-fluid" src="img/s4.png" alt="">
+                              <div class="float-right"><button class="btn btn-danger" id="Subscribe" value="Subscribe" type="button">Subscribe</button></div>
+                           
+                              <img id="image" class="img-fluid" src="" alt="">
                               <p><a href="#"><strong id="title"></strong></a> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></p>
-                              <small>Published on Aug 10, 2018</small>
+                              <small id="date" ></small>
+                              <br>
+                              <i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i><small id="sub" ></small>
                            </div>
                            <div class="single-video-info-content box mb-3">
                               <h6>Streamer:</h6>
@@ -31,11 +34,12 @@
                      </div>
                   </div>
                </div>
+            </div>
                <script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js" defer ></script>
               
                <script src="receive.js" defer>
                   var streamerid="<%- id %>";
-                  console.log(streamerid);
+                 
                  
                </script>
                
@@ -44,6 +48,9 @@
              
                <script type="module">
                   var streamerid="<%- id %>"
+                  var clientid="<%- idc %>"
+                  var channel_name="<%- name %>";
+               
                   startv(streamerid);
             
                   // Import the functions you need from the SDKs you need
@@ -72,19 +79,96 @@
              const db=getDatabase();
              const dbref=ref(db);
              var key;
+             var nbss=0;
+             var listsub;
+             
+             var sbb=document.getElementById("Subscribe");
+
+             sbb.addEventListener("click",()=>{
+               get(child(dbref, "channels")). then((snapshot)=>{
+                     if(snapshot!=null){
+                           var channel=snapshot.val();
+                           for(var i=0;i<Object.values(channel).length;i++){
+                             if((Object.values(channel)[i]["userid"]==streamerid) &&(Object.values(channel)[i]["channel-name"]==channel_name)){
+                                 key=Object.keys(channel)[i];
+                                 nbss=Object.values(channel)[i]["sub"]
+                                 listsub=Object.values(channel)[i]["listsub"]
+                              }
+                           }
+                              if(sbb.getAttribute("value")=="Subscribe"){
+                               listsub.push(clientid);
+                               var dbref2=ref(db,"channels/"+key);
+                                update(dbref2,{sub:nbss+1}).then(()=>{
+                               console.log("updated")});;
+                               update(dbref2,{listsub:listsub}).then(()=>{
+                                console.log("updated")});;
+                               sbb.innerHTML="Unsubscribe";
+                               sbb.setAttribute("value","Unsubscribe");
+                               console.log(nbss);
+                           
+                             var o=nbss+1;
+                             var type="";
+                              if(o>=1000000){o=o /1000000;type="M"}else{
+                                 if(o>=1000){o=o /1000;type="K"}
+                              }
+                              console.log(type);
+                              var nbs=document.getElementById("sub");
+                               nbs.innerText=o+type+" subscribers";
+                
+                       }else{
+                              var dbref2=ref(db,"channels/"+key);
+                              update(dbref2,{sub:nbss-1}).then(()=>{});
+                              
+                              var type="";
+                              var o=nbss-1;
+                          
+                              if(o>=1000000){o=o /1000000;type="M"}else{
+                                 if(o>=1000){o=o /1000;type="K"}
+                              }
+                              var nbs=document.getElementById("sub");
+                               nbs.innerText=o+type+" subscribers";
+                             
+                              sbb.innerText="Subscribe ";
+                              sbb.setAttribute("value","Subscribe");
+                              listsub.pop(clientid);
+                              update(dbref2,{listsub:listsub}).then(()=>{
+                              console.log("updated")});;
+
+                                }
+                        }
+              
+                        
+                    }
+                  )
+              
+             });
          
              
              get(child(dbref, "channels")). then((snapshot)=>{
                 if(snapshot!=null){
                    var channel=snapshot.val();
-               
-                   
-                 
+                  
                    for(var i=0;i<Object.values(channel).length;i++){
-                      if(Object.values(channel)[i]["userid"]==streamerid){
-                         key=Object.keys(channel)[i];
+                      if((Object.values(channel)[i]["userid"]==streamerid) &&(Object.values(channel)[i]["channel-name"]==channel_name)){
+                       
                          var title=document.getElementById("title");
                          title.innerText=Object.values(channel)[i]["channel-name"];
+                         var image=document.getElementById("image");
+                         image.setAttribute("src",Object.values(channel)[i]["imageurl"]);
+                         var d=document.getElementById("date");
+                         d.innerText='Published on '+Object.values(channel)[i]["date"];
+                         var type="";
+                              var sub=Object.values(channel)[i]["sub"]
+                              if(sub>=1000000){sub=sub /1000000;type="M"}else{
+                                 if(sub>=1000){sub=sub /1000;type="K"}
+                              }
+                        var nbs=document.getElementById("sub");
+                        nbs.innerText=sub+type+" subscribers";
+                        if(Object.values(channel)[i]["listsub"].includes(clientid)){
+                           var sbb=document.getElementById("Subscribe");
+                           sbb.innerHTML="Unsubscribe";
+                            sbb.setAttribute("value","Unsubscribe");
+                        }
    
                          var cast=document.getElementById("cast");
                          cast.innerText=Object.values(channel)[i]["cast"];

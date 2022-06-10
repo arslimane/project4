@@ -56,8 +56,9 @@
                 
                </div>
             </div>
+            <input class="form-control" type="file" id="photo" />
             <div class="osahan-area text-center mt-3">
-               <button id="save" onclick=" InsertData()" class="btn btn-outline-primary">Save Changes</button>
+               <button id="save"  class="btn btn-outline-primary">Save Changes</button>
             </div>
             <hr>
             <div class="terms text-center">
@@ -95,7 +96,45 @@
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+    //  import {ref as ref2} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-storage.js" 
+      import { getStorage, ref as ref2, uploadBytes,getDownloadURL,uploadBytesResumable } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-storage.js";
       const db=getDatabase();
+      console.log(app.storage);
+
+      function uploadImage() {
+      const ref =ref2;
+      const file = document.querySelector("#photo").files[0];
+      const name = +new Date() + "-" + file.name;
+      const metadata = {
+        contentType: file.type
+      };
+      const storage = getStorage();
+      const storageRef = ref(storage, 'images/'+file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+
+uploadTask.on('state_changed', 
+  (snapshot) => {
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case 'paused':
+        console.log('Upload is paused');
+        break;
+      case 'running':
+        console.log('Upload is running');
+        break;
+    }
+  }, 
+  (error) => {
+  }, 
+  () => {
+    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      InsertData(downloadURL);
+    });
+  }
+);
+    }
 
     function getCategory(){
        const dbref=ref(db);
@@ -144,7 +183,7 @@
     });
    }
 
-   function InsertData(categories){
+   function InsertData(d){
       var channel_name=document.getElementsByName("channel-name")[0].value;
       var about=document.getElementsByName("about")[0].value;
       var tag=document.getElementsByName("tag")[0].value;
@@ -159,18 +198,24 @@
       }
      
 }
-
-
+var list= ["start"];
+var date = new Date();
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
    push(ref(db,"channels"),{
       "userid":uid,
       "channel-name":channel_name,
       "about":about,
       "tags":tag,
       "cast":cast,
+      "state":false,
       "categories":checkedValue,
-      "language":language
-
-
+      "language":language,
+      "imageurl":d,
+      "sub":0,
+      "listsub":list,
+      "date":monthNames[date.getMonth()]+" "+date.getDate()+","+date.getFullYear()
    }).then(()=>{alert("data stored scussfuly");
    window.location.href="https://localhost:8001/index";}
    ).catch(err=>{
@@ -181,7 +226,7 @@
 }
 
 var submit=document.getElementById("save");
-submit.addEventListener("click", ()=>{InsertData();});
+submit.addEventListener("click", ()=>{uploadImage();});
  
    getCategory();
    

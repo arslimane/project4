@@ -144,7 +144,68 @@ app.get('/video-page-send', (req, res) => {
   
 })
 app.get('/video-page-recieve', (req, res) => {
-  res.render('video-page-recieve',{id:req.query.id});
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      res.render('video-page-recieve',{id:req.query.id,idc:userData.uid,name:req.query.name});
+    })
+    .catch((error) => {
+      res.redirect("/login");
+    });
+
+ 
+ 
+})
+app.get('/account', (req, res) => {
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      res.render('account',{idc:userData.uid});
+    })
+    .catch((error) => {
+      res.redirect("/login");
+    });
+
+ 
+ 
+})
+app.get('/subscriptions', (req, res) => {
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      res.render('subscriptions',{idc:userData.uid});
+    })
+    .catch((error) => {
+      res.redirect("/login");
+    });
+
+ 
+ 
+})
+app.get('/settings', (req, res) => {
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      res.render('settings',{id:req.query.id,idc:userData.uid});
+    })
+    .catch((error) => {
+      res.redirect("/login");
+    });
+
+ 
+ 
+})
+
+app.get('/channels', (req, res) => {
+  res.render('channels');
  
 })
 

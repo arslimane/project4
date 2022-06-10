@@ -77,13 +77,7 @@
       
           
 
-      <!-- Custom scripts for all pages-->
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <!-- Core plugin JavaScript-->
-      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-      <!-- Owl Carousel -->
-      <script src="vendor/owl-carousel/owl.carousel.js"></script>
+
       <script type="module" defer>
           
          // Import the functions you need from the SDKs you need
@@ -138,7 +132,7 @@
         a.setAttribute("href","#");
         var img=document.createElement("img");
         img.setAttribute("class","img-fluid");
-        img.setAttribute("src","img/s1.png");
+        img.setAttribute("src",Object.values(channel)[i]["image"]);
         img.setAttribute("alt","");
       
         var h=document.createElement("h6");
@@ -219,7 +213,7 @@
                   a.setAttribute("href","https://localhost:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]);
                   var img=document.createElement("img");
                   img.setAttribute("class","img-fluid");
-                  img.setAttribute("src","img/v4.png");
+                  img.setAttribute("src",Object.values(channel)[j]["imageurl"]);
                   a.append(img);
                   divcardimage.append(play);
                   divcardimage.append(a);
@@ -240,7 +234,7 @@
                   divbody.append(divsc);
                   divcard.append(divbody);
                   
-                  console.log(divcol);
+               
                   div1.append(divcol);
                   }
 

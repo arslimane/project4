@@ -1,5 +1,5 @@
 
-function sendv(streamerid){
+async function sendv(streamerid){
 console.log(streamerid);
 const peer1=new Peer(streamerid); 
 var MediaStream;
@@ -18,14 +18,16 @@ streamc.addEventListener("click", ()=>{on(peer1)})
           var v1=document.getElementById("video-send");
            v1.srcObject=stream;
            MediaStream1 = stream.getTracks();
-           v1.play();
-           
+         
+     
     
+           v1.play();
+          
+          // var encrypted =  CryptoJS.AES.encrypt(JSON.stringify({ stream }),key);
            peer1.on('connection', (conn) => {
-             console.log("connect");
            conn.on('open', (data) => {
-            console.log("send data");
             // when a listener connects, call them!
+            var message="hello";
             peer1.call(
               conn.peer,
               stream
@@ -62,6 +64,7 @@ if (navigator.getUserMedia) {
         conn.on('open', (data) => {
            console.log("send data");
          // when a listener connects, call them!
+     
          peer1.call(
            conn.peer,
            stream
