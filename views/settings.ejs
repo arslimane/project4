@@ -11,13 +11,13 @@
                      <div class="col-sm-6">
                         <div class="form-group">
                            <label class="control-label">First Name <span class="required">*</span></label>
-                           <input class="form-control border-form-control" value="" placeholder="Gurdeep" type="text">
+                           <input class="form-control border-form-control" value="" name="first" placeholder="Gurdeep" type="text">
                         </div>
                      </div>
                      <div class="col-sm-6">
                         <div class="form-group">
                            <label class="control-label">Last Name <span class="required">*</span></label>
-                           <input class="form-control border-form-control" value="" placeholder="Osahan" type="text">
+                           <input class="form-control border-form-control" name="last" value="" placeholder="Osahan" type="text">
                         </div>
                      </div>
                   </div>
@@ -25,13 +25,13 @@
                      <div class="col-sm-6">
                         <div class="form-group">
                            <label class="control-label">Phone <span class="required">*</span></label>
-                           <input class="form-control border-form-control" value="" placeholder="123 456 7890" type="number">
+                           <input class="form-control border-form-control" name="phone" value="" placeholder="123 456 7890" type="number">
                         </div>
                      </div>
                      <div class="col-sm-6">
                         <div class="form-group">
                            <label class="control-label">Email Address <span class="required">*</span></label>
-                           <input class="form-control border-form-control " value="" placeholder="iamosahan@gmail.com" disabled="" type="email">
+                           <input class="form-control border-form-control " name="email" value="" placeholder="iamosahan@gmail.com"  type="email">
                         </div>
                      </div>
                   </div>
@@ -39,7 +39,7 @@
                      <div class="col-sm-6">
                         <div class="form-group">
                            <label class="control-label">Country <span class="required">*</span></label>
-                           <select  class="custom-select">
+                           <select id="country" class="custom-select">
                               <option value="">Select Country</option>
                               <option value="AF">Afghanistan</option>
                               <option value="AX">Åland Islands</option>
@@ -293,53 +293,122 @@
                            </select>
                         </div>
                      </div>
-                     <div class="col-sm-6">
-                        <div class="form-group">
-                           <label class="control-label">City <span class="required">*</span></label>
-                           <select  class="custom-select">
-                              <option value="">Select City</option>
-                              <option value="AF">Alaska</option>
-                              <option value="AX">New Hampshire</option>
-                              <option value="AL">Oregon</option>
-                              <option value="DZ">Toronto</option>
-                           </select>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row">
+                  
+                  
+                  
                      <div class="col-sm-6">
                         <div class="form-group">
                            <label class="control-label">Zip Code <span class="required">*</span></label>
-                           <input class="form-control border-form-control" value="" placeholder="123456" type="number">
+                           <input class="form-control border-form-control" name="code" value="" placeholder="123456" type="number">
                         </div>
-                     </div>
-                     <div class="col-sm-6">
-                        <div class="form-group">
-                           <label class="control-label">State <span class="required">*</span></label>
-                           <select  class="custom-select">
-                              <option value="">Select State</option>
-                              <option value="AF">California</option>
-                              <option value="AX">Florida</option>
-                              <option value="AL">Georgia</option>
-                              <option value="DZ">Idaho</option>
-                           </select>
-                        </div>
-                     </div>
+                     
+                    
+                  </div>
                   </div>
                   <div class="row">
                      <div class="col-sm-12">
                         <div class="form-group">
                            <label class="control-label">Address <span class="required">*</span></label>
-                           <textarea class="form-control border-form-control"></textarea>
+                           <textarea class="form-control border-form-control" name="adress"></textarea>
                         </div>
                      </div>
                   </div>
                   <div class="row">
+                     <input class="form-control" type="file" id="photo" />
+                  </div>
+                  <div class="row">
                      <div class="col-sm-12 text-right">
                         <button type="button" class="btn btn-danger border-none"> Cencel </button>
-                        <button type="button" class="btn btn-success border-none"> Save Changes </button>
+                        <button type="button" id="save" class="btn btn-success border-none"> Save Changes </button>
                      </div>
                   </div>
                </form>
             </div>
+            
+            <script type="module" >
+               var clientid="<%- idc %>"
+               import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+               import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+              
+               const firebaseConfig = {
+                 apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
+                 authDomain: "ezlive-3de45.firebaseapp.com",
+                 databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
+                 projectId: "ezlive-3de45",
+                 storageBucket: "ezlive-3de45.appspot.com",
+                 messagingSenderId: "307117333023",
+                 appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
+                 measurementId: "G-L3YF1HP60C"
+               };
+  
+             
+               const app = initializeApp(firebaseConfig);
+               const analytics = getAnalytics(app);
+               import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+               import { getStorage, ref as ref2, uploadBytes,getDownloadURL,uploadBytesResumable } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-storage.js";
+               const db=getDatabase();
+               const dbref=ref(db);
+               
+               function uploadImage() {
+                 const ref =ref2;
+                const file = document.querySelector("#photo").files[0];
+                const name = +new Date() + "-" + file.name;
+                const metadata = {
+                contentType: file.type
+                  };
+                const storage = getStorage();
+                const storageRef = ref(storage, 'images/'+file.name);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+
+                uploadTask.on('state_changed', 
+                (snapshot) => {
+                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                      console.log('Upload is ' + progress + '% done');
+                      switch (snapshot.state) {
+                      case 'paused':
+                      
+                      break;
+                     case 'running':
+                    console.log('Upload is running');
+                       break;
+                      }
+                       }, 
+                    (error) => {
+                        }, 
+                     () => {
+                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                     InsertData(downloadURL);
+                      });
+                      }
+                    );
+                 }
+                 function InsertData(d){
+     
+     
+
+var e=document.getElementById("country");
+var op=e.value;
+
+   set(ref(db,"profiles/"+clientid),{
+      "first-name":document.getElementsByName("first")[0].value,
+      "last-name":document.getElementsByName("last")[0].value,
+      "phone":document.getElementsByName("phone")[0].value,
+      "email":document.getElementsByName("email")[0].value,
+      "country":op,
+      "zip-code":document.getElementsByName("code")[0].value,
+      "address":document.getElementsByName("adress")[0].value,
+      "imageurl":d,
+   }).then(()=>{alert("data stored scussfuly");
+   window.location.href="https://localhost:8001/index";}
+   ).catch(err=>{
+      alert("unsuccessful,error"+err);
+     
+
+   });
+}
+var submit=document.getElementById("save");
+submit.addEventListener("click", ()=>{uploadImage();});
+
+               </script>
             <%- include("footer.ejs") %>

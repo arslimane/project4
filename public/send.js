@@ -1,6 +1,5 @@
 
 async function sendv(streamerid){
-console.log(streamerid);
 const peer1=new Peer(streamerid); 
 var MediaStream;
 var MediaStream1;   
@@ -8,6 +7,8 @@ var streamf=document.getElementById("streamf");
 var streamc=document.getElementById("streamc");
 streamf.addEventListener("click", ()=>{on1(peer1);});  
 streamc.addEventListener("click", ()=>{on(peer1)})  
+
+
 }   
           
  async function startCapture(displayMediaOptions,peer1) {

@@ -79,7 +79,7 @@ app.get('/index', (req, res) => {
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
   
-      res.render(`index`);
+      res.render('index',{idc:userData.uid,id:userData.uid});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -108,7 +108,7 @@ app.get('/create-channel', (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.render(`create-channel`,{id:userData.uid});
+      res.render(`create-channel`,{id:userData.uid,idc:userData.uid});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -136,7 +136,7 @@ app.get('/video-page-send', (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.render(`video-page-send`,{id:userData.uid});
+      res.render(`video-page-send`,{idc:userData.uid,id:req.query.id,name:req.query.name});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -164,7 +164,7 @@ app.get('/account', (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.render('account',{idc:userData.uid});
+      res.render('account',{idc:userData.uid,id:userData.uid});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -179,7 +179,7 @@ app.get('/subscriptions', (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.render('subscriptions',{idc:userData.uid});
+      res.render('subscriptions',{idc:userData.uid,id:userData.uid});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -194,7 +194,7 @@ app.get('/settings', (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.render('settings',{id:req.query.id,idc:userData.uid});
+      res.render('settings',{idc:userData.uid,id:userData.uid});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -205,10 +205,29 @@ app.get('/settings', (req, res) => {
 })
 
 app.get('/channels', (req, res) => {
-  res.render('channels');
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      var t;
+      if(req.query.state!=null) t="s" ; else t="nos";
+      if(req.query.search!=null) t="search";
+      res.render('channels',{idc:userData.uid,id:req.query.id,state:t,search:req.query.search});
+    })
+    .catch((error) => {
+      res.redirect("/login");
+    });
+
  
 })
+app.get('/forgot-password', (req, res) => {
+ 
+      res.render('forgot-password');
+   
 
+ 
+})
 
 
 

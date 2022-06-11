@@ -7,8 +7,8 @@
                               Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                               </a>
                               <div class="dropdown-menu dropdown-menu-right">
-                                 <a class="dropdown-item" id="toprated"  href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
-                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
+                                 <a class="dropdown-item" id="toprated" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Most sub</a>
+                                 <a class="dropdown-item" id="topviewed" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp;Most  Viewed</a>
                                  <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
                               </div>
                            </div>
@@ -49,7 +49,7 @@
              import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
              const db=getDatabase();
              const dbref=ref(db);
-             function toprated(){
+             function toprated(x){
                get(child(dbref, "channels")). then((snapshot)=>{
                      if(snapshot!=null){
                           var objs=[];
@@ -60,16 +60,80 @@
                               }
                            }
                          
-                                objs.sort( (a,b)=>{return a["sub"]-b["sub"]});
-                                console.log(objs);
-                     }
-                  }
+                                objs.sort( (a,b)=>{return a[x]-b[x]});
+                               
+                                var row=document.getElementById("r");
+                                var e1=row.firstElementChild;
+                                var child=row.lastElementChild;
+                                while (child) {
+                                 row.removeChild(child);
+                                 child = row.lastElementChild;
+                                    }
+                                    row.append(e1);
+
+                                for(var i=objs.length-1;i>=0;i--){
+                                 
+                                 
+                                 var o=objs[i]["sub"];
+                                 var type="";
+                                 if(o>=1000000){o=o /1000000;type="M"}else{
+                                 if(o>=1000){o=o /1000;type="K"}}
+                                 var divcol=document.createElement("div");
+                              divcol.setAttribute("class","col-xl-3 col-sm-6 mb-3");
+                              var divcard=document.createElement("div");
+                              divcard.setAttribute("class","channels-card");
+                              var divcardimage=document.createElement("div");
+                              divcardimage.setAttribute("class","channels-card-image");
+                              var a=document.createElement("a");
+                  
+                              a.setAttribute("href","https://localhost:8001/video-page-recieve?id="+objs[i]["userid"]+"&name="+objs[i]["channel-name"]);
+                              var img=document.createElement("img");
+                              img.setAttribute("class","img-fluid");
+                              img.setAttribute("src",objs[i]["imageurl"]);
+                              a.append(img);
+                              divcardimage.append(a);
+                              var s=document.createElement("div");
+                              s.setAttribute("class","channels-card-image-btn");
+                              var type=""
+                              var sub=objs[i]["sub"]
+                              if(sub>=1000000){sub=sub /1000000;type=" M"}else{
+                                 if(sub>=1000){sub=sub /1000;type=" K"}
+                              }
+                              s.innerHTML='<button type="button" class="btn btn-outline-danger btn-sm">Subscribe <strong>'+sub+type+'</strong></button>';
+                              divcardimage.append(s);
+                              divcard.append(divcardimage);
+                              divcol.append(divcard);
+            
+                              var divbody=document.createElement("div");
+                              divbody.setAttribute("class","channels-card-body");
+                              var divtitle=document.createElement("div");
+                              divtitle.setAttribute("class","channels-title");
+                              divtitle.innerHTML="<a href='#'>"+objs[i]["channel-name"]+"<span title='' data-placement='top' data-toggle='tooltip' data-original-title='Verified'><i class='fas fa-check-circle'></i></span></a>";
+            
+                              divbody.append(divtitle);
+            
+                              var divsc=document.createElement("div");
+                              divsc.setAttribute("class","channels-view");
+                              divsc.innerHTML=objs[i]["sub"]+' subscribers';
+                              divbody.append(divsc);
+                              divcard.append(divbody);
+                              
+                           
+                              row.append(divcol);
+
+                                }
+                     
+                  }}
                )
 
              }
              var a=document.getElementById("toprated");
              a.addEventListener("click",()=>{
-                toprated();
+                toprated("sub");
+             })
+              a=document.getElementById("topviewed");
+             a.addEventListener("click",()=>{
+                toprated("totalviews");
              })
              var row=document.getElementById("r");
              get(child(dbref, "channels")). then((snapshot)=>{

@@ -25,7 +25,7 @@
 
       <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js" defer ></script>
       <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js" defer ></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer></script>
    </head>
    <body id="page-top">
       <nav class="navbar navbar-expand navbar-light bg-white static-top osahan-nav sticky-top">
@@ -37,9 +37,9 @@
          <!-- Navbar Search -->
          <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
             <div class="input-group">
-               <input type="text" class="form-control" placeholder="Search for...">
+               <input id="st" type="text" class="form-control" placeholder="Search for...">
                <div class="input-group-append">
-                  <button class="btn btn-light" type="button">
+                  <button id="search" class="btn btn-light" type="button">
                   <i class="fas fa-search"></i> 
                   </button>
                </div>
@@ -48,7 +48,7 @@
          <!-- Navbar -->
          <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
             <li class="nav-item mx-1">
-               <a class="nav-link" href="video-page-send">
+               <a id="stream" class="nav-link" href="video-page-send">
                <i class="fas fa-plus-circle fa-fw"></i>
                Start Streaming 
                </a>
@@ -78,9 +78,8 @@
                </div>
             </li>
             <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
-               <a class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <img alt="Avatar" src="img/user.png">
-               Osahan 
+               <a id="namep" class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              
                </a>
                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                   <a class="dropdown-item" href="account"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My Account</a>
@@ -172,3 +171,66 @@
                      </div>
                   </div>
                </div>
+               <script type="module" >
+                  var clientid="<%- idc %>"
+                  var streamerid="<%- id %>";
+                  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+                  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+                 
+                  const firebaseConfig = {
+                    apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
+                    authDomain: "ezlive-3de45.firebaseapp.com",
+                    databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
+                    projectId: "ezlive-3de45",
+                    storageBucket: "ezlive-3de45.appspot.com",
+                    messagingSenderId: "307117333023",
+                    appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
+                    measurementId: "G-L3YF1HP60C"
+                  };
+     
+                
+                  const app = initializeApp(firebaseConfig);
+                  const analytics = getAnalytics(app);
+                  import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+                  const db=getDatabase();
+                  const dbref=ref(db);
+                  var numberofchannel=0;
+                  var search =document.getElementById("search");
+                      search.addEventListener("click",()=>{
+                        var st=document.getElementById("st");
+                        window.location.href="https://localhost:8001/channels?id="+streamerid+"&search="+st.value.replaceAll(" ","+");
+                      })
+                 
+                      get(child(dbref, "profiles")). then((snapshot)=>{
+                         if(snapshot!=null){
+                            var channel=snapshot.val();
+                            var div1=document.getElementById("row");
+                              for(var i=0;i<Object.values(channel).length;i++){
+                              if(Object.values(channel)[i]["userid"]==clientid){
+                                numberofchannel++;
+                                }
+                            }
+                            var stream=document.getElementById("stream");
+
+                             if(numberofchannel==1){
+                              stream.setAttribute("href","video-page-send?id="+clientid)
+                             }else{
+                              stream.setAttribute("href","channels?id="+streamerid+"&state=s");
+                             }
+                         
+                           for(var j=0;j<Object.values(channel).length;j++){
+                              if(Object.keys(channel)[j]==clientid){
+                                 var name=document.getElementById("namep");
+                                 var img=document.createElement("img");
+                                 img.setAttribute("src",Object.values(channel)[j]["imageurl"]);
+                                 var t=document.createTextNode(Object.values(channel)[j]["first-name"]);
+                                 name.append(img);
+                                 name.append(t);
+                           }
+                        }
+                     }
+                  }
+                      )
+
+                            
+                  </script>

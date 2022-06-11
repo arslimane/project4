@@ -79,6 +79,7 @@
 
 
       <script type="module" defer>
+         var streamerid="<%- id %>";
           
          // Import the functions you need from the SDKs you need
          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
@@ -129,7 +130,7 @@
         var item=document.createElement("div");
         item.setAttribute("class","item");
         var a=document.createElement("a");
-        a.setAttribute("href","#");
+        a.setAttribute("href","https://localhost:8001/channels?id="+streamerid+"&search="+Object.values(channel)[i]["name"]);
         var img=document.createElement("img");
         img.setAttribute("class","img-fluid");
         img.setAttribute("src",Object.values(channel)[i]["image"]);
@@ -205,7 +206,7 @@
                   divcardimage.setAttribute("class","video-card-image");
                   var play=document.createElement("a");
                   play.setAttribute("class","play-icon");
-                  play.setAttribute("href","https://localhost:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]);
+                  play.setAttribute("href","https://localhost:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]+"&name="+Object.values(channel)[j]["channel-name"]);
                   var i=document.createElement("i");
                   i.setAttribute("class","fas fa-play-circle");
                   play.append(i);

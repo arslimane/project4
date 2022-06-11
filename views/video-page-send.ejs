@@ -1,143 +1,193 @@
 <%-include("header.ejs") %>
-        
-               <div class="video-block section-padding">
-                  <div class="row">
-                     <div class="col-lg-12">
-                        <div class="single-video-left">
-                           <div class="single-video">
-                              <video muted id="video-send" width="1000" height="500" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></video>
-                           </div>
-                          
-                           <div class="single-video-author box mb-3">
-                              <div class="float-right"><button id="streamc" class="btn btn-success" type="button">Stream cam </button> <button id="streamf" class="btn btn-info" type="button">Stream Screen </button></div>
-                              <img class="img-fluid" src="img/s4.png" alt="">
-                              <p><a href="#"><strong id="title"></strong></a> <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></span></p>
-                              <small>Published on Aug 10, 2018</small>
-                           </div>
-                           <div class="single-video-info-content box mb-3">
-                              <h6>Streamer:</h6>
-                              <p id="cast"></p>
-                              <h6>Category :</h6>
-                              <p id="category"></p>
-                              <h6>About :</h6>
-                              <p id="about"> </p>
-                              <h6>Tags :</h6>
-                              <p id="tag" class="tags mb-0">
-                                
-                              
-                              </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+
+   <div class="video-block section-padding">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="single-video-left">
+               <div class="single-video">
+                  <video muted id="video-send" width="1000" height="500" src="" frameborder="0"
+                     allow="autoplay; encrypted-media" allowfullscreen></video>
                </div>
-            
-            <script defer src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
-     
-            <script src="send.js" defer>
-               var streamerid="<%- id %>"
-               sendv(streamerid);
-            </script>
-            <script type="module">
-               var streamerid="<%- id %>";
-               sendv(streamerid);
-               
-               
-               // Import the functions you need from the SDKs you need
-          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
-          import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
-          // TODO: Add SDKs for Firebase products that you want to use
-          // https://firebase.google.com/docs/web/setup#available-libraries
-        
-          // Your web app's Firebase configuration
-          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-          const firebaseConfig = {
-            apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
-            authDomain: "ezlive-3de45.firebaseapp.com",
-            databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
-            projectId: "ezlive-3de45",
-            storageBucket: "ezlive-3de45.appspot.com",
-            messagingSenderId: "307117333023",
-            appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
-            measurementId: "G-L3YF1HP60C"
-          };
-        
-          // Initialize Firebase
-          const app = initializeApp(firebaseConfig);
-          const analytics = getAnalytics(app);
-          import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
-          const db=getDatabase();
-          const dbref=ref(db);
-          var key;
-      
-          
-          get(child(dbref, "channels")). then((snapshot)=>{
-             if(snapshot!=null){
-                var channel=snapshot.val();
-            
-                
-              
-                for(var i=0;i<Object.values(channel).length;i++){
-                   if(Object.values(channel)[i]["userid"]==streamerid){
-                      key=Object.keys(channel)[i];
-                      var title=document.getElementById("title");
-                      title.innerText=Object.values(channel)[i]["channel-name"];
 
-                      var cast=document.getElementById("cast");
-                      cast.innerText=Object.values(channel)[i]["cast"];
-
-                      var category=document.getElementById("category");
-                      category.innerText=Object.values(channel)[i]["categories"];
-                  
-                      var about=document.getElementById("about");
-                      about.innerText=Object.values(channel)[i]["about"];
-
-                      var tags=document.getElementById("tag");
-                     var t=Object.values(channel)[i]["tags"];
-                     var t2=t.split(",");
-                     for(var i=0;i<t2.length;i++){
-                       tags.innerHTML=tags.innerHTML+"<span><a href='#'>"+t2[i]+"</a></span>&nbsp;";
-
-                     }
-
-                    
-                  
-                  
-                  
-
-                   }
-                }
-
-             }
-            })
-
-            var v=document.getElementById("video-send");
-                     v.addEventListener("play",()=>{
-                        if(v.srcObject==null){
-                  
-                           var dbref2=ref(db,"channels/"+key);
-                           update(dbref2,{state:false}).then(()=>{
-                              console.log("updated")});;
-
-                        }else{
-                           
-                           var dbref2=ref(db,"channels/"+key);
-                           update(dbref2,{state:true});
-                        }
-                     })
-
-                     v.addEventListener("emptied",()=>{
-                        
-                         
-                           var dbref2=ref(db,"channels/"+key);
-                           update(dbref2,{state:false});
-
-                        
-                     })
+               <div class="single-video-author box mb-3">
+                  <div class="float-right"><button id="streamc" class="btn btn-success" type="button">Stream cam
+                     </button> <button id="streamf" class="btn btn-info" type="button">Stream Screen </button></div>
+                  <img id="image" class="img-fluid" src="img/s4.png" alt="">
+                  <p><a href="#"><strong id="title"></strong></a> <span title="" data-placement="top"
+                        data-toggle="tooltip" data-original-title="Verified"><i
+                           class="fas fa-check-circle text-success"></i></span></p>
+                  <small id="date"></small>
+                  <br>
+                  <i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i><small
+                     id="sub"></small>
+               </div>
+               <div class="single-video-info-content box mb-3">
+                  <h6>Streamer:</h6>
+                  <p id="cast"></p>
+                  <h6>Category :</h6>
+                  <p id="category"></p>
+                  <h6>About :</h6>
+                  <p id="about"> </p>
+                  <h6>Tags :</h6>
+                  <p id="tag" class="tags mb-0">
 
 
-            </script>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
 
-            
-           <%- include("footer.ejs") %>
-</html>
+   <script defer src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
+
+   <script src="send.js" defer>
+      var streamerid = "<%- id %>"
+
+   </script>
+   <script type="module">
+      var streamerid = "<%- id %>";
+      var channelname = "<%- name %>";
+
+
+
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+         apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
+         authDomain: "ezlive-3de45.firebaseapp.com",
+         databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
+         projectId: "ezlive-3de45",
+         storageBucket: "ezlive-3de45.appspot.com",
+         messagingSenderId: "307117333023",
+         appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
+         measurementId: "G-L3YF1HP60C"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      var access;
+      const analytics = getAnalytics(app);
+      import { getDatabase, ref, get, set, child, update, remove, push } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+      const db = getDatabase();
+      const dbref = ref(db);
+      var key;
+
+
+
+      get(child(dbref, "channels")).then((snapshot) => {
+         if (snapshot != null) {
+            var channel = snapshot.val();
+            for (var i = 0; i < Object.values(channel).length; i++) {
+               if (Object.values(channel)[i]["userid"] == streamerid && Object.values(channel)[i]["channel-name"] == channelname) {
+                  key = Object.keys(channel)[i];
+                  function makeid() {
+                     var text = "";
+                     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                     for (var i = 0; i < 28; i++)
+                        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                     return text;
+                  }
+                  access =makeid();
+
+                  //cryptage begin
+                  var salt = CryptoJS.lib.WordArray.random(128 / 8);
+
+                  var k = CryptoJS.PBKDF2("Secret Passphrase", salt, {
+                     keySize: 256 / 32
+                  });
+                  var keyc = CryptoJS.AES.encrypt(access, k.toString());
+
+                  var dbref2 = ref(db, "channels/" + key);
+                  update(dbref2, { key: k.toString() }).then(() => console.log("keyup"));
+                  update(dbref2, { access:keyc.toString() }).then(() => console.log("accessup"));
+
+
+                  sendv(access);
+                  //cryptage end
+
+                  var title = document.getElementById("title");
+                  title.innerText = Object.values(channel)[i]["channel-name"];
+                  var image = document.getElementById("image");
+                  image.setAttribute("src", Object.values(channel)[i]["imageurl"]);
+                  var d = document.getElementById("date");
+                  d.innerText = 'Published on ' + Object.values(channel)[i]["date"];
+                  var type = "";
+                  var sub = Object.values(channel)[i]["sub"]
+                  if (sub >= 1000000) { sub = sub / 1000000; type = "M" } else {
+                     if (sub >= 1000) { sub = sub / 1000; type = "K" }
+                  }
+                  var nbs = document.getElementById("sub");
+                  nbs.innerText = sub + type + " subscribers";
+
+
+                  var cast = document.getElementById("cast");
+                  cast.innerText = Object.values(channel)[i]["cast"];
+
+                  var category = document.getElementById("category");
+                  category.innerText = Object.values(channel)[i]["categories"];
+
+                  var about = document.getElementById("about");
+                  about.innerText = Object.values(channel)[i]["about"];
+
+                  var tags = document.getElementById("tag");
+                  var t = Object.values(channel)[i]["tags"];
+                  var t2 = t.split(",");
+                  for (var i = 0; i < t2.length; i++) {
+                     tags.innerHTML = tags.innerHTML + "<span><a href='#'>" + t2[i] + "</a></span>&nbsp;";
+
+                  }
+
+
+               }
+            }
+         }
+      })
+
+
+
+
+      var v = document.getElementById("video-send");
+      v.addEventListener("play", () => {
+         if (v.srcObject == null) {
+
+            var dbref2 = ref(db, "channels/" + key);
+
+            update(dbref2, { state: false }).then(() => {
+               console.log("updated")
+            });
+
+         } else {
+            var dbref2 = ref(db, "channels/" + key);
+            update(dbref2, { state: true }).then(() => {
+               console.log("updated")
+            });;
+
+
+         }
+      })
+
+      v.addEventListener("emptied", () => {
+         var dbref2 = ref(db, "channels/" + key);
+         update(dbref2, { state: false });
+
+
+      })
+
+
+   </script>
+
+
+   <%- include("footer.ejs") %>
+
+      </html>

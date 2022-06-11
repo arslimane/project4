@@ -95,11 +95,9 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
-      import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
-    //  import {ref as ref2} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-storage.js" 
+      import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js"; 
       import { getStorage, ref as ref2, uploadBytes,getDownloadURL,uploadBytesResumable } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-storage.js";
       const db=getDatabase();
-      console.log(app.storage);
 
       function uploadImage() {
       const ref =ref2;
@@ -203,6 +201,7 @@ var date = new Date();
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
+var cryptedkey=CryptoJS.AES.encrypt(uid,"Secret Passphrase");
    push(ref(db,"channels"),{
       "userid":uid,
       "channel-name":channel_name,
@@ -215,6 +214,10 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
       "imageurl":d,
       "sub":0,
       "listsub":list,
+      "totalviews":0,
+      "viewsnow":0,
+      "key":cryptedkey.key,
+      "access":cryptedkey,
       "date":monthNames[date.getMonth()]+" "+date.getDate()+","+date.getFullYear()
    }).then(()=>{alert("data stored scussfuly");
    window.location.href="https://localhost:8001/index";}
