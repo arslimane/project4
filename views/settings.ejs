@@ -400,7 +400,7 @@ var op=e.value;
       "address":document.getElementsByName("adress")[0].value,
       "imageurl":d,
    }).then(()=>{alert("data stored scussfuly");
-   window.location.href="https://localhost:8001/index";}
+   window.location.href=window.location.origin+"/index";}
    ).catch(err=>{
       alert("unsuccessful,error"+err);
      

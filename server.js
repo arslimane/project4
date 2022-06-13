@@ -48,6 +48,7 @@ app.all("*", (req, res, next) => {
 
 app.post("/sessionLogin", (req, res) => {
   const idToken = req.body.idToken.toString();
+  
 
   const expiresIn = 60 * 60 * 24 * 5 * 1000;
 
@@ -78,6 +79,7 @@ app.get('/index', (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
+    
   
       res.render('index',{idc:userData.uid,id:userData.uid});
     })
@@ -136,7 +138,7 @@ app.get('/video-page-send', (req, res) => {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
-      res.render(`video-page-send`,{idc:userData.uid,id:req.query.id,name:req.query.name});
+      res.render(`video-page-send`,{idc:userData.uid,id:userData.uid,name:req.query.name});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -150,6 +152,21 @@ app.get('/video-page-recieve', (req, res) => {
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
       res.render('video-page-recieve',{id:req.query.id,idc:userData.uid,name:req.query.name});
+    })
+    .catch((error) => {
+      res.redirect("/login");
+    });
+
+ 
+ 
+})
+app.get('/categories', (req, res) => {
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      res.render('categories',{id:userData.uid,idc:userData.uid});
     })
     .catch((error) => {
       res.redirect("/login");
@@ -204,6 +221,21 @@ app.get('/settings', (req, res) => {
  
 })
 
+app.get('/settings2', (req, res) => {
+  const sessionCookie = req.cookies.session || "";
+  admin
+    .auth()
+    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .then((userData) => {
+      res.render('settings2',{idc:userData.uid,id:userData.uid});
+    })
+    .catch((error) => {
+      res.redirect("/login");
+    });
+
+ 
+ 
+})
 app.get('/channels', (req, res) => {
   const sessionCookie = req.cookies.session || "";
   admin
@@ -213,6 +245,7 @@ app.get('/channels', (req, res) => {
       var t;
       if(req.query.state!=null) t="s" ; else t="nos";
       if(req.query.search!=null) t="search";
+    
       res.render('channels',{idc:userData.uid,id:req.query.id,state:t,search:req.query.search});
     })
     .catch((error) => {

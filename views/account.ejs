@@ -1,317 +1,252 @@
 <%- include("header.ejs") %>
-         
-               <div class="row">
-                  <div class="col-xl-3 col-sm-6 mb-3">
-                     <div class="card text-white bg-primary o-hidden h-100 border-none">
-                        <div class="card-body">
-                           <div class="card-body-icon">
-                              <i class="fas fa-fw fa-users"></i>
-                           </div>
-                           <div class="mr-5"><b>26</b> Channels</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                        </span>
-                        </a>
-                     </div>
-                  </div>
-                  <div class="col-xl-3 col-sm-6 mb-3">
-                     <div class="card text-white bg-warning o-hidden h-100 border-none">
-                        <div class="card-body">
-                           <div class="card-body-icon">
-                              <i class="fas fa-fw fa-video"></i>
-                           </div>
-                           <div class="mr-5"><b>156</b> Videos</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                        </span>
-                        </a>
-                     </div>
-                  </div>
-                  <div class="col-xl-3 col-sm-6 mb-3">
-                     <div class="card text-white bg-success o-hidden h-100 border-none">
-                        <div class="card-body">
-                           <div class="card-body-icon">
-                              <i class="fas fa-fw fa-list-alt"></i>
-                           </div>
-                           <div class="mr-5"><b>123</b> Categories</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                        </span>
-                        </a>
-                     </div>
-                  </div>
-                  <div class="col-xl-3 col-sm-6 mb-3">
-                     <div class="card text-white bg-danger o-hidden h-100 border-none">
-                        <div class="card-body">
-                           <div class="card-body-icon">
-                              <i class="fas fa-fw fa-cloud-upload-alt"></i>
-                           </div>
-                           <div class="mr-5"><b>13</b> New Videos</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                        <i class="fas fa-angle-right"></i>
-                        </span>
-                        </a>
-                     </div>
+
+   <div class="row">
+      <div class="col-xl-3 col-sm-6 mb-3">
+         <div class="card text-white bg-primary o-hidden h-100 border-none">
+            <div class="card-body">
+               <div class="card-body-icon">
+                  <i class="fas fa-fw fa-users"></i>
+               </div>
+               <div class="mr-5"><b id="nbc">26</b> Channels</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+               <span class="float-left">View Details</span>
+               <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+               </span>
+            </a>
+         </div>
+      </div>
+
+      <div class="col-xl-3 col-sm-6 mb-3">
+         <div class="card text-white bg-success o-hidden h-100 border-none">
+            <div class="card-body">
+               <div class="card-body-icon">
+                  <i class="fas fa-fw fa-list-alt"></i>
+               </div>
+               <div class="mr-5"><b id="nbcat">123</b> Categories</div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+               <span class="float-left">View Details</span>
+               <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+               </span>
+            </a>
+         </div>
+      </div>
+
+   </div>
+   <hr>
+   <div class="video-block section-padding">
+
+      <div id="row" class="row">
+         <div class="col-md-12">
+            <div class="main-title">
+               <div class="btn-group float-right right-action">
+                  <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true"
+                     aria-expanded="false">
+                     Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                     <a class="dropdown-item" id="toprated" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top
+                        Rated</a>
+                     <a class="dropdown-item" id="topviewed" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp;
+                        Viewed</a>
+                     <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
                   </div>
                </div>
-               <hr>
-               <div class="video-block section-padding">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <div class="main-title">
-                           <div class="btn-group float-right right-action">
-                              <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
-                              </a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
-                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
-                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
-                              </div>
-                           </div>
-                           <h6>My Videos</h6>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="video-card">
-                           <div class="video-card-image">
-                              <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                              <a href="#"><img class="img-fluid" src="img/v5.png" alt=""></a>
-                              <div class="time">3:50</div>
-                           </div>
-                           <div class="video-card-body">
-                              <div class="video-title">
-                                 <a href="#">There are many variations of passages of Lorem</a>
-                              </div>
-                              <div class="video-page text-success">
-                                 Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                              </div>
-                              <div class="video-view">
-                                 1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="video-card">
-                           <div class="video-card-image">
-                              <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                              <a href="#"><img class="img-fluid" src="img/v6.png" alt=""></a>
-                              <div class="time">3:50</div>
-                           </div>
-                           <div class="video-card-body">
-                              <div class="video-title">
-                                 <a href="#">There are many variations of passages of Lorem</a>
-                              </div>
-                              <div class="video-page text-danger">
-                                 Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Unverified"><i class="fas fa-frown text-danger"></i></a>
-                              </div>
-                              <div class="video-view">
-                                 1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="video-card">
-                           <div class="video-card-image">
-                              <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                              <a href="#"><img class="img-fluid" src="img/v7.png" alt=""></a>
-                              <div class="time">3:50</div>
-                           </div>
-                           <div class="video-card-body">
-                              <div class="video-title">
-                                 <a href="#">There are many variations of passages of Lorem</a>
-                              </div>
-                              <div class="video-page text-success">
-                                 Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                              </div>
-                              <div class="video-view">
-                                 1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="video-card">
-                           <div class="video-card-image">
-                              <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                              <a href="#"><img class="img-fluid" src="img/v8.png" alt=""></a>
-                              <div class="time">3:50</div>
-                           </div>
-                           <div class="video-card-body">
-                              <div class="video-title">
-                                 <a href="#">There are many variations of passages of Lorem</a>
-                              </div>
-                              <div class="video-page text-success">
-                                 Education  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>
-                              </div>
-                              <div class="video-view">
-                                 1.8M views &nbsp;<i class="fas fa-calendar-alt"></i> 11 Months ago
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <hr class="mt-0">
-               <div class="video-block section-padding">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <div class="main-title">
-                           <div class="btn-group float-right right-action">
-                              <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
-                              </a>
-                              <div class="dropdown-menu dropdown-menu-right">
-                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
-                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
-                                 <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
-                              </div>
-                           </div>
-                           <h6>My Channels</h6>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s1.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-danger btn-sm">Subscribe <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name</a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s2.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-danger btn-sm">Subscribe <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name</a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s3.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-secondary btn-sm">Subscribed <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle"></i></span></a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s6.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-danger btn-sm">Subscribe <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name</a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s8.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-danger btn-sm">Subscribe <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name</a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s7.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-secondary btn-sm">Subscribed <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name <span title="" data-placement="top" data-toggle="tooltip" data-original-title="Verified"><i class="fas fa-check-circle"></i></span></a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s1.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-danger btn-sm">Subscribe <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name</a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-xl-3 col-sm-6 mb-3">
-                        <div class="channels-card">
-                           <div class="channels-card-image">
-                              <a href="#"><img class="img-fluid" src="img/s2.png" alt=""></a>
-                              <div class="channels-card-image-btn"><button type="button" class="btn btn-danger btn-sm">Subscribe <strong>1.4M</strong></button></div>
-                           </div>
-                           <div class="channels-card-body">
-                              <div class="channels-title">
-                                 <a href="#">Channels Name</a>
-                              </div>
-                              <div class="channels-view">
-                                 382,323 subscribers
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-             
-         <%- include("footer.ejs") %>
+               <h6>My Channels</h6>
+            </div>
+         </div>
+
+
+
+      </div>
+   </div>
+   </div>
+
+   <script type="module" defer>
+
+      var clientid = "<%-idc %>";
+      var n = 0;
+      var i = 0;
+
+
+      function toprated(x, objs) {
+         objs.sort((a, b) => { return a[x] - b[x] });
+         var row = document.getElementById("row");
+         var e1 = row.firstElementChild;
+         var child = row.lastElementChild;
+         while (child) {
+            row.removeChild(child);
+            child = row.lastElementChild;
+         }
+         row.append(e1);
+
+         for (var i = objs.length - 1; i >= 0; i--) {
+            var o = objs[i]["sub"];
+            var type = "";
+            if (o >= 1000000) { o = o / 1000000; type = "M" } else {
+               if (o >= 1000) { o = o / 1000; type = "K" }
+            }
+            var divcol = document.createElement("div");
+            divcol.setAttribute("class", "col-xl-3 col-sm-6 mb-3");
+            var divcard = document.createElement("div");
+            divcard.setAttribute("class", "channels-card");
+            var divcardimage = document.createElement("div");
+            divcardimage.setAttribute("class", "channels-card-image");
+            var a = document.createElement("a");
+
+            a.setAttribute("href", window.location.origin+"/video-page-recieve?id=" + objs[i]["userid"] + "&name=" + objs[i]["channel-name"]);
+            var img = document.createElement("img");
+            img.setAttribute("class", "img-fluid");
+            img.setAttribute("src", objs[i]["imageurl"]);
+            a.append(img);
+            divcardimage.append(a);
+            var s = document.createElement("div");
+            s.setAttribute("class", "channels-card-image-btn");
+            var type = ""
+            var sub = objs[i]["sub"]
+            if (sub >= 1000000) { sub = sub / 1000000; type = " M" } else {
+               if (sub >= 1000) { sub = sub / 1000; type = " K" }
+            }
+            s.innerHTML = '<button type="button" class="btn btn-danger btn-sm">Subscribe <strong>' + sub + type + '</strong></button>';
+            divcardimage.append(s);
+            divcard.append(divcardimage);
+            divcol.append(divcard);
+
+            var divbody = document.createElement("div");
+            divbody.setAttribute("class", "channels-card-body");
+            var divtitle = document.createElement("div");
+            divtitle.setAttribute("class", "channels-title");
+            divtitle.innerHTML = "<a href='#'>" + objs[i]["channel-name"] + "<span title='' data-placement='top' data-toggle='tooltip' data-original-title='Verified'><i class='fas fa-check-circle'></i></span></a>";
+
+            divbody.append(divtitle);
+
+            var divsc = document.createElement("div");
+            divsc.setAttribute("class", "channels-view");
+            divsc.innerHTML = objs[i]["sub"] + ' subscribers';
+            divbody.append(divsc);
+            divcard.append(divbody);
+
+
+            row.append(divcol);
+
+         }
+
+
+
+
+      }
+
+
+
+
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+         apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
+         authDomain: "ezlive-3de45.firebaseapp.com",
+         databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
+         projectId: "ezlive-3de45",
+         storageBucket: "ezlive-3de45.appspot.com",
+         messagingSenderId: "307117333023",
+         appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
+         measurementId: "G-L3YF1HP60C"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      import { getDatabase, ref, get, set, child, update, remove, push } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+      const db = getDatabase();
+      var objs = [];
+      function getChannel() {
+         const dbref = ref(db);
+         get(child(dbref, "channels")).then((snapshot) => {
+            if (snapshot != null) {
+               var channel = snapshot.val();
+               var div1 = document.getElementById("row");
+
+               for (var j = 0; j < Object.values(channel).length; j++) {
+                  if (Object.values(channel)[j]["userid"] == clientid) {
+                     objs.push(Object.values(channel)[j]);
+                     n++;
+                     i = i + Object.values(channel)[j]["categories"].length;
+                    
+                     var divcol = document.createElement("div");
+                     divcol.setAttribute("class", "col-xl-3 col-sm-6 mb-3");
+                     var divcard = document.createElement("div");
+                     divcard.setAttribute("class", "channels-card");
+                     var divcardimage = document.createElement("div");
+                     divcardimage.setAttribute("class", "channels-card-image");
+                     var a = document.createElement("a");
+                     a.setAttribute("href", window.location.origin+"/video-page-recieve?id=" + Object.values(channel)[j]["userid"] + "&name=" + Object.values(channel)[j]["channel-name"]);
+                     var img = document.createElement("img");
+                     img.setAttribute("class", "img-fluid");
+                     img.setAttribute("src", Object.values(channel)[j]["imageurl"]);
+                     a.append(img);
+                     divcardimage.append(a);
+                     var s = document.createElement("div");
+                     s.setAttribute("class", "channels-card-image-btn");
+                     var type = ""
+                     var sub = Object.values(channel)[j]["sub"]
+                     if (sub >= 1000000) { sub = sub / 1000000; type = " M" } else {
+                        if (sub >= 1000) { sub = sub / 1000; type = " K" }
+                     }
+                     s.innerHTML = '<button type="button" class="btn btn-danger btn-sm">Subscribe <strong>' + sub + type + '</strong></button>';
+                     divcardimage.append(s);
+                     divcard.append(divcardimage);
+                     divcol.append(divcard);
+
+                     var divbody = document.createElement("div");
+                     divbody.setAttribute("class", "channels-card-body");
+                     var divtitle = document.createElement("div");
+                     divtitle.setAttribute("class", "channels-title");
+                     divtitle.innerHTML = "<a href='#'>" + Object.values(channel)[j]["channel-name"] + "<span title='' data-placement='top' data-toggle='tooltip' data-original-title='Verified'><i class='fas fa-check-circle'></i></span></a>";
+
+                     divbody.append(divtitle);
+
+                     var divsc = document.createElement("div");
+                     divsc.setAttribute("class", "channels-view");
+                     divsc.innerHTML = Object.values(channel)[j]["sub"] + ' subscribers';
+                     divbody.append(divsc);
+                     divcard.append(divbody);
+
+
+                     div1.append(divcol);
+
+
+                  }
+                  var nbc = document.getElementById("nbc");
+                  nbc.innerText = n;
+
+
+                  var nbc = document.getElementById("nbcat");
+                  nbc.innerText = i;
+               }
+            }
+         })
+      }
+      getChannel();
+
+      var a = document.getElementById("toprated");
+      a.addEventListener("click", () => {
+         toprated("sub", objs);
+      })
+      a = document.getElementById("topviewed");
+      a.addEventListener("click", () => {
+         toprated("totalviews", objs);
+      })
+
+
+
+   </script>
+
+   <%- include("footer.ejs") %>

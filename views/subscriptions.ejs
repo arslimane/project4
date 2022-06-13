@@ -86,7 +86,7 @@
                               divcardimage.setAttribute("class","channels-card-image");
                               var a=document.createElement("a");
                   
-                              a.setAttribute("href","https://localhost:8001/video-page-recieve?id="+objs[i]["userid"]+"&name="+objs[i]["channel-name"]);
+                              a.setAttribute("href",window.location.origin+"/video-page-recieve?id="+objs[i]["userid"]+"&name="+objs[i]["channel-name"]);
                               var img=document.createElement("img");
                               img.setAttribute("class","img-fluid");
                               img.setAttribute("src",objs[i]["imageurl"]);
@@ -154,7 +154,7 @@
                               divcardimage.setAttribute("class","channels-card-image");
                               var a=document.createElement("a");
                   
-                              a.setAttribute("href","https://localhost:8001/video-page-recieve?id="+Object.values(channel)[i]["userid"]+"&name="+Object.values(channel)[i]["channel-name"]);
+                              a.setAttribute("href",window.location.origin+"/video-page-recieve?id="+Object.values(channel)[i]["userid"]+"&name="+Object.values(channel)[i]["channel-name"]);
                               var img=document.createElement("img");
                               img.setAttribute("class","img-fluid");
                               img.setAttribute("src",Object.values(channel)[i]["imageurl"]);

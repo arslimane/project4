@@ -153,6 +153,11 @@
                         var accesscrypted =Object.values(channel)[i]["access"]
                           var access=accesscrypted;
                           if(Object.values(channel)[i]["listsub"].includes(clientid)){
+                           var dbref2 = ref(db, "channels/" + Object.keys(channel)[i]);
+                           var v=Object.values(channel)[i]["viewsnow"];
+                     
+                           v++;
+                           update(dbref2, { viewsnow: v }).then(() => { });
                        
                            var k=Object.values(channel)[i]["key"];
                                 access=CryptoJS.AES.decrypt(accesscrypted,k.toString()).toString(CryptoJS.enc.Utf8);

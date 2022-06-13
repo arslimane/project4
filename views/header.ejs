@@ -1,236 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
-   
+
 <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="Askbootstrap">
-      <meta name="author" content="Askbootstrap">
-      <title>Ezlive - Video Streaming Website </title>
-      <!-- Favicon Icon -->
-      <link rel="icon" type="image/png" href="img/favicon.png">
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta name="description" content="Askbootstrap">
+   <meta name="author" content="Askbootstrap">
+   <title>Ezlive - Video Streaming Website </title>
+   <!-- Favicon Icon -->
+   <link rel="icon" type="image/png" href="img/favicon.png">
 
-   
-     
-      <!-- Bootstrap core CSS-->
-      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" defer>
-      <!-- Custom fonts for this template-->
-      <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" defer>
-      <!-- Custom styles for this template-->
-      <link href="css/osahan.css" rel="stylesheet" defer>
-      <!-- Owl Carousel -->
-      <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css" defer>
-      <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css" defer>
 
-      <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js" defer ></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js" defer ></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer></script>
-   </head>
-   <body id="page-top">
-      <nav class="navbar navbar-expand navbar-light bg-white static-top osahan-nav sticky-top">
-         &nbsp;&nbsp; 
-         <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
+
+   <!-- Bootstrap core CSS-->
+   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" defer>
+   <!-- Custom fonts for this template-->
+   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" defer>
+   <!-- Custom styles for this template-->
+   <link href="css/osahan.css" rel="stylesheet" defer>
+   <!-- Owl Carousel -->
+   <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css" defer>
+   <link rel="stylesheet" href="vendor/owl-carousel/owl.theme.css" defer>
+
+   <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js" defer></script>
+   <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js" defer></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js" defer></script>
+</head>
+
+<body id="page-top">
+   <nav class="navbar navbar-expand navbar-light bg-white static-top osahan-nav sticky-top">
+      &nbsp;&nbsp;
+      <button class="btn btn-link btn-sm text-secondary order-1 order-sm-0" id="sidebarToggle">
          <i class="fas fa-bars"></i>
-         </button> &nbsp;&nbsp;
-         <a class="navbar-brand mr-1" href="index"><img width="100" height="40" class="img-fluid" alt="" src="img/logo.png"></a>
-         <!-- Navbar Search -->
-         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
-            <div class="input-group">
-               <input id="st" type="text" class="form-control" placeholder="Search for...">
-               <div class="input-group-append">
-                  <button id="search" class="btn btn-light" type="button">
-                  <i class="fas fa-search"></i> 
-                  </button>
-               </div>
+      </button> &nbsp;&nbsp;
+      <a class="navbar-brand mr-1" href="index"><img width="100" height="40" class="img-fluid" alt=""
+            src="img/logo.png"></a>
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
+         <div class="input-group">
+            <input id="st" type="text" class="form-control" placeholder="Search for...">
+            <div class="input-group-append">
+               <button id="search" class="btn btn-light" type="button">
+                  <i class="fas fa-search"></i>
+               </button>
             </div>
-         </form>
-         <!-- Navbar -->
-         <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
-            <li class="nav-item mx-1">
-               <a id="stream" class="nav-link" href="video-page-send">
+         </div>
+      </form>
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
+         <li class="nav-item mx-1">
+            <a id="stream" class="nav-link" href="video-page-send">
                <i class="fas fa-plus-circle fa-fw"></i>
-               Start Streaming 
-               </a>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Start Streaming
+            </a>
+         </li>
+         <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
                <i class="fas fa-bell fa-fw"></i>
-               <span class="badge badge-danger">9+</span>
-               </a>
-               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-                  <a class="dropdown-item" href="#"><i class="fas fa-fw fa-edit "></i> &nbsp; Action</a>
-                  <a class="dropdown-item" href="#"><i class="fas fa-fw fa-headphones-alt "></i> &nbsp; Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star "></i> &nbsp; Something else here</a>
-               </div>
-            </li>
-            <li class="nav-item dropdown no-arrow mx-1">
-               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <span id="notification" class="badge badge-danger"></span>
+            </a>
+            <div id="listnot" class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+            </div>
+         </li>
+         <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
                <i class="fas fa-envelope fa-fw"></i>
-               <span class="badge badge-success">7</span>
-               </a>
-               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-                  <a class="dropdown-item" href="#"><i class="fas fa-fw fa-edit "></i> &nbsp; Action</a>
-                  <a class="dropdown-item" href="#"><i class="fas fa-fw fa-headphones-alt "></i> &nbsp; Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star "></i> &nbsp; Something else here</a>
-               </div>
-            </li>
-            <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
-               <a id="namep" class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              
-               </a>
-               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                  <a class="dropdown-item" href="account"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My Account</a>
-                  <a class="dropdown-item" href="subscriptions"><i class="fas fa-fw fa-video"></i> &nbsp; Subscriptions</a>
-                  <a class="dropdown-item" href="settings"><i class="fas fa-fw fa-cog"></i> &nbsp; Settings</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
-               </div>
-            </li>
-         </ul>
-      </nav>
-      <div id="wrapper">
-         <!-- Sidebar -->
-         <ul class="sidebar navbar-nav">
-            <li class="nav-item active">
-               <a class="nav-link" href="index">
+               <span class="badge badge-success"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+               <a class="dropdown-item" href="#"><i class="fas fa-fw fa-edit "></i> &nbsp; Action</a>
+               <a class="dropdown-item" href="#"><i class="fas fa-fw fa-headphones-alt "></i> &nbsp; Another action</a>
+               <div class="dropdown-divider"></div>
+               <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star "></i> &nbsp; Something else here</a>
+            </div>
+         </li>
+         <li class="nav-item dropdown no-arrow osahan-right-navbar-user">
+            <a id="namep" class="nav-link dropdown-toggle user-dropdown-link" href="#" id="userDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+               <a class="dropdown-item" href="account"><i class="fas fa-fw fa-user-circle"></i> &nbsp; My Account</a>
+               <a class="dropdown-item" href="subscriptions"><i class="fas fa-fw fa-video"></i> &nbsp; Subscriptions</a>
+               <a class="dropdown-item" href="settings"><i class="fas fa-fw fa-cog"></i> &nbsp; Settings</a>
+               <div class="dropdown-divider"></div>
+               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i
+                     class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
+            </div>
+         </li>
+      </ul>
+   </nav>
+   <div id="wrapper">
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+         <li class="nav-item active">
+            <a class="nav-link" href="index">
                <i class="fas fa-fw fa-home"></i>
                <span>Home</span>
-               </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="channels">
+            </a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link" href="channels">
                <i class="fas fa-fw fa-users"></i>
                <span>Channels</span>
-               </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="my-channel">
-               <i class="fas fa-fw fa-user-alt"></i>
-               <span>Single Channel</span>
-               </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link" href="video-page">
-               <i class="fas fa-fw fa-video"></i>
-               <span>Video Page</span>
-               </a>
-            </li>
-           
-            <li class="nav-item">
-               <a class="nav-link" href="create-channel">
+            </a>
+         </li>
+       
+
+
+
+         <li class="nav-item">
+            <a class="nav-link" href="create-channel">
                <i class="fas fa-fw fa-cloud-upload-alt"></i>
                <span>Create channel</span>
-               </a>
-            </li>
-            <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fas fa-fw fa-folder"></i>
-               <span>Pages</span>
-               </a>
-               <div class="dropdown-menu">
-                  <h6 class="dropdown-header">Login Screens:</h6>
-                  <a class="dropdown-item" href="login">Login</a>
-                  <a class="dropdown-item" href="register">Register</a>
-                  <a class="dropdown-item" href="forgot-password">Forgot Password</a>
-                  <div class="dropdown-divider"></div>
-                  <h6 class="dropdown-header">Other Pages:</h6>
-                  <a class="dropdown-item" href="404">404 Page</a>
-                  <a class="dropdown-item" href="blank">Blank Page</a>
-               </div>
-            </li>
-            
-            <li class="nav-item dropdown">
-               <a class="nav-link dropdown-toggle" href="categories.html" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <i class="fas fa-fw fa-list-alt"></i>
+            </a>
+         </li>
+
+
+         <li class="nav-item">
+            <a class="nav-link" href="Categories">
+               <i class="fas fa-fw fa-cloud-upload-alt"></i>
                <span>Categories</span>
-               </a>
-               <div class="dropdown-menu">
-                  <a class="dropdown-item" href="categories.html">Movie</a>
-                  <a class="dropdown-item" href="categories.html">Music</a>
-                  <a class="dropdown-item" href="categories.html">Television</a>
-               </div>
-            </li>
-            
-         </ul>
-         <div id="content-wrapper">
-            <div class="container-fluid pb-0">
-               <div class="top-mobile-search">
-                  <div class="row">
-                     <div class="col-md-12">   
-                        <form class="mobile-search">
-                           <div class="input-group">
-                             <input type="text" placeholder="Search for..." class="form-control">
-                               <div class="input-group-append">
-                                 <button type="button" class="btn btn-dark"><i class="fas fa-search"></i></button>
-                               </div>
+            </a>
+         </li>
+
+      </ul>
+      <div id="content-wrapper">
+         <div class="container-fluid pb-0">
+            <div class="top-mobile-search">
+               <div class="row">
+                  <div class="col-md-12">
+                     <form class="mobile-search">
+                        <div class="input-group">
+                           <input type="text" placeholder="Search for..." class="form-control">
+                           <div class="input-group-append">
+                              <button type="button" class="btn btn-dark"><i class="fas fa-search"></i></button>
                            </div>
-                        </form>   
-                     </div>
+                        </div>
+                     </form>
                   </div>
                </div>
-               <script type="module" >
-                  var clientid="<%- idc %>"
-                  var streamerid="<%- id %>";
-                  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
-                  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
-                 
-                  const firebaseConfig = {
-                    apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
-                    authDomain: "ezlive-3de45.firebaseapp.com",
-                    databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
-                    projectId: "ezlive-3de45",
-                    storageBucket: "ezlive-3de45.appspot.com",
-                    messagingSenderId: "307117333023",
-                    appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
-                    measurementId: "G-L3YF1HP60C"
-                  };
-     
-                
-                  const app = initializeApp(firebaseConfig);
-                  const analytics = getAnalytics(app);
-                  import{getDatabase,ref,get,set,child,update,remove,push} from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
-                  const db=getDatabase();
-                  const dbref=ref(db);
-                  var numberofchannel=0;
-                  var search =document.getElementById("search");
-                      search.addEventListener("click",()=>{
-                        var st=document.getElementById("st");
-                        window.location.href="https://localhost:8001/channels?id="+streamerid+"&search="+st.value.replaceAll(" ","+");
-                      })
-                 
-                      get(child(dbref, "profiles")). then((snapshot)=>{
-                         if(snapshot!=null){
-                            var channel=snapshot.val();
-                            var div1=document.getElementById("row");
-                              for(var i=0;i<Object.values(channel).length;i++){
-                              if(Object.values(channel)[i]["userid"]==clientid){
-                                numberofchannel++;
-                                }
-                            }
-                            var stream=document.getElementById("stream");
+            </div>
+            <script type="module">
+               var clientid = "<%- idc %>"
+               var streamerid = "<%- id %>";
+               import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+               import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
 
-                             if(numberofchannel==1){
-                              stream.setAttribute("href","video-page-send?id="+clientid)
-                             }else{
-                              stream.setAttribute("href","channels?id="+streamerid+"&state=s");
-                             }
-                         
-                           for(var j=0;j<Object.values(channel).length;j++){
-                              if(Object.keys(channel)[j]==clientid){
-                                 var name=document.getElementById("namep");
-                                 var img=document.createElement("img");
-                                 img.setAttribute("src",Object.values(channel)[j]["imageurl"]);
-                                 var t=document.createTextNode(Object.values(channel)[j]["first-name"]);
-                                 name.append(img);
-                                 name.append(t);
+               const firebaseConfig = {
+                  apiKey: "AIzaSyB92ojoKUrMWJZO2xvi9GmN3lPKtuoLANM",
+                  authDomain: "ezlive-3de45.firebaseapp.com",
+                  databaseURL: "https://ezlive-3de45-default-rtdb.firebaseio.com",
+                  projectId: "ezlive-3de45",
+                  storageBucket: "ezlive-3de45.appspot.com",
+                  messagingSenderId: "307117333023",
+                  appId: "1:307117333023:web:0926177e6fe7e03f8bd32a",
+                  measurementId: "G-L3YF1HP60C"
+               };
+
+
+               const app = initializeApp(firebaseConfig);
+               const analytics = getAnalytics(app);
+               import { getDatabase, ref, get, set, child, update, remove, push } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
+               const db = getDatabase();
+               const dbref = ref(db);
+               var numberofchannel = 0;
+               var search = document.getElementById("search");
+               search.addEventListener("click", () => {
+                  var st = document.getElementById("st");
+                  window.location.href = window.location.origin+"/channels?id=" + streamerid + "&search=" + st.value.replaceAll(" ", "+");
+               })
+
+               var name = ""
+               var obj = [];
+               get(child(dbref, "channels")).then((snapshot2) => {
+                  if (snapshot2 != null) {
+                 
+                     var channel2 = snapshot2.val();
+                     if (channel2 != null) {
+                       
+                        var listno = document.getElementById("listnot");
+                        var notification = document.getElementById("notification");
+                        var child2 = listno.lastElementChild;
+                        while (child2) {
+                           listno.removeChild(child2);
+                           child2 = listno.lastElementChild;
+                        }
+                        var k = 0;
+                        var numberofchannel = 0;
+                     
+                        var name;
+                        for (var i = 0; i < Object.values(channel2).length; i++) {
+                           if (Object.values(channel2)[i]["userid"] == clientid) {
+                              numberofchannel++;
+                              name=Object.values(channel2)[i]["channel-name"];
                            }
+                        }
+                       
+                        var stream = document.getElementById("stream");
+
+                        if (numberofchannel == 1) {
+                           stream.setAttribute("href", "video-page-send?id=" + clientid+"&name="+name);
+                        }
+
+                        if (numberofchannel > 1) { stream.setAttribute("href", "channels?id=" + clientid + "&state=s"); }
+                        if (numberofchannel == 0) { stream.setAttribute("href", "create-channel"); }
+
+                        
+                 
+                        for (var j = 0; j < Object.values(channel2).length; j++) {
+                           obj.push(Object.values(channel2)[j])
+                           
+                           if (Object.values(channel2)[j]["listsub"].includes(clientid) && Object.values(channel2)[j]["state"] == true) {
+                              k++;
+                              var a = document.createElement("a");
+                              a.setAttribute("class", "dropdown-item");
+                              a.setAttribute("href", window.location.origin+"/video-page-recieve?id=" + Object.values(channel2)[j]["userid"] + "&name=" + Object.values(channel2)[j]["channel-name"]);
+                              var i = document.createElement("i");
+                              i.setAttribute("class", "fas fa-bullhorn");
+                              a.append(i);
+                              var t = document.createTextNode(Object.values(channel2)[j]["channel-name"] + " is live now");
+                              a.append(t);
+                              listno.append(a);
+
+                           }
+
+                        }
+                        if (k != 0) notification.innerText = k + "+";
+
+
+                     }else {
+                  
+                     var stream = document.getElementById("stream");
+
+                        stream.setAttribute("href", "create-channel");
+                  }
+                  } 
+               }
+               )
+
+
+
+               get(child(dbref, "category")).then((snapshot) => {
+                  if (snapshot != null) {
+                     var channel = snapshot.val();
+                     var v = 0;
+                     for (var i = 0; i < Object.values(channel).length; i++) {
+                        v = 0;
+                        name = Object.values(channel)[i]["name"];
+                        obj.forEach(element => {
+                           if (element["categories"].includes(name)) {
+                              v = v + element["totalviews"];
+                           }
+                        });
+                        var dbref2 = ref(db, "category/" + Object.keys(channel)[i]);
+                        update(dbref2, { views: v }).then(() => { });
+
+                     }
+                  }
+               }
+               )
+
+
+
+               get(child(dbref, "profiles")).then((snapshot) => {
+                  if (snapshot != null) {
+                     var channel = snapshot.val();
+                     var div1 = document.getElementById("row");
+
+
+                     for (var j = 0; j < Object.values(channel).length; j++) {
+                        if (Object.keys(channel)[j] == clientid) {
+                           var name = document.getElementById("namep");
+                           var img = document.createElement("img");
+                           img.setAttribute("src", Object.values(channel)[j]["imageurl"]);
+                           var t = document.createTextNode(Object.values(channel)[j]["first-name"]);
+                           name.append(img);
+                           name.append(t);
                         }
                      }
                   }
-                      )
+               }
+               )
 
-                            
-                  </script>
+
+            </script>

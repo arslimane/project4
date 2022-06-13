@@ -43,11 +43,11 @@
    <script defer src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
 
    <script src="send.js" defer>
-      var streamerid = "<%- id %>"
+      var streamerid = "<%- idc %>"
 
    </script>
    <script type="module">
-      var streamerid = "<%- id %>";
+      var streamerid = "<%- idc %>";
       var channelname = "<%- name %>";
 
 
@@ -79,75 +79,62 @@
       import { getDatabase, ref, get, set, child, update, remove, push } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
       const db = getDatabase();
       const dbref = ref(db);
-      var key;
+      var key = "";
+      var title = document.getElementById("title");
+      var about = document.getElementById("about");
+      var image = document.getElementById("image");
+      var d = document.getElementById("date");
+      var nbs = document.getElementById("sub");
+      var cast = document.getElementById("cast");
+      var category = document.getElementById("category");
+      var tags = document.getElementById("tag");
+      function makeid() {
+         var text = "";
+         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+         for (var j = 0; j < 28; j++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
 
+         return text;
+      }
+      access = makeid();
+      var salt = CryptoJS.lib.WordArray.random(128 / 8);
 
-      get(child(dbref, "channels")).then((snapshot) => {
-         if (snapshot != null) {
-            var channel = snapshot.val();
-            for (var i = 0; i < Object.values(channel).length; i++) {
-               if (Object.values(channel)[i]["userid"] == streamerid && Object.values(channel)[i]["channel-name"] == channelname) {
-                  key = Object.keys(channel)[i];
-                  function makeid() {
-                     var text = "";
-                     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var k = CryptoJS.PBKDF2("Secret Passphrase", salt, {
+         keySize: 256 / 32
+      });
+      var keyc = CryptoJS.AES.encrypt(access, k.toString());
+      sendv(access);
 
-                     for (var i = 0; i < 28; i++)
-                        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-                     return text;
-                  }
-                  access =makeid();
-
-                  //cryptage begin
-                  var salt = CryptoJS.lib.WordArray.random(128 / 8);
-
-                  var k = CryptoJS.PBKDF2("Secret Passphrase", salt, {
-                     keySize: 256 / 32
-                  });
-                  var keyc = CryptoJS.AES.encrypt(access, k.toString());
-
-                  var dbref2 = ref(db, "channels/" + key);
-                  update(dbref2, { key: k.toString() }).then(() => console.log("keyup"));
-                  update(dbref2, { access:keyc.toString() }).then(() => console.log("accessup"));
-
-
-                  sendv(access);
-                  //cryptage end
-
-                  var title = document.getElementById("title");
-                  title.innerText = Object.values(channel)[i]["channel-name"];
-                  var image = document.getElementById("image");
-                  image.setAttribute("src", Object.values(channel)[i]["imageurl"]);
-                  var d = document.getElementById("date");
-                  d.innerText = 'Published on ' + Object.values(channel)[i]["date"];
+      get(child(dbref, "channels")).then((res) => {
+         if (res.val() != null) {
+            var ch = res.val();
+            for (var h = 0; h < Object.values(ch).length; h++) {
+               if (Object.values(ch)[h]["userid"] == streamerid && Object.values(ch)[h]["channel-name"] == channelname) {
+                  key = Object.keys(ch)[h];
+                  title.innerText = Object.values(ch)[h]["channel-name"];
+                  about.innerText = Object.values(ch)[h]["about"];
+                  image.setAttribute("src", Object.values(ch)[h]["imageurl"]);
+                  category.innerText = Object.values(ch)[h]["categories"]
+                  d.innerText = 'Published on ' + Object.values(ch)[h]["date"];
                   var type = "";
-                  var sub = Object.values(channel)[i]["sub"]
+                  var sub = Object.values(ch)[h]["sub"]
                   if (sub >= 1000000) { sub = sub / 1000000; type = "M" } else {
                      if (sub >= 1000) { sub = sub / 1000; type = "K" }
                   }
-                  var nbs = document.getElementById("sub");
+
                   nbs.innerText = sub + type + " subscribers";
-
-
-                  var cast = document.getElementById("cast");
-                  cast.innerText = Object.values(channel)[i]["cast"];
-
-                  var category = document.getElementById("category");
-                  category.innerText = Object.values(channel)[i]["categories"];
-
-                  var about = document.getElementById("about");
-                  about.innerText = Object.values(channel)[i]["about"];
-
-                  var tags = document.getElementById("tag");
-                  var t = Object.values(channel)[i]["tags"];
+                  cast.innerText = Object.values(ch)[h]["cast"];
+                  about.innerText = Object.values(ch)[h]["about"];
+                  var t = Object.values(ch)[h]["tags"];
                   var t2 = t.split(",");
-                  for (var i = 0; i < t2.length; i++) {
-                     tags.innerHTML = tags.innerHTML + "<span><a href='#'>" + t2[i] + "</a></span>&nbsp;";
+                  for (var j = 0; j < t2.length; j++) {
+                     tags.innerHTML = tags.innerHTML + "<span><a href='#'>" + t2[j] + "</a></span>&nbsp;";
 
                   }
-
+                  var dbref2 = ref(db, "channels/" + Object.keys(ch)[h]);
+                    update(dbref2, { key: k.toString() }).then(() => console.log("keyup"));
+                    update(dbref2, { access: keyc.toString() }).then(() => console.log("accessup"));
 
                }
             }
@@ -156,6 +143,8 @@
 
 
 
+
+      
 
       var v = document.getElementById("video-send");
       v.addEventListener("play", () => {
@@ -171,7 +160,23 @@
             var dbref2 = ref(db, "channels/" + key);
             update(dbref2, { state: true }).then(() => {
                console.log("updated")
-            });;
+            });
+            get(child(dbref, "channels")).then((snapshot) => {
+               if (snapshot != null) {
+                  var channel = snapshot.val();
+                  for (var i = 0; i < Object.values(channel).length; i++) {
+                     if (Object.values(channel)[i]["userid"] == streamerid && Object.values(channel)[i]["channel-name"] == channelname) {
+                        var v = Object.values(channel)[i]["totalviews"] + Object.values(channel)[i]["viewsnow"];
+                        console.log(v);
+                        update(dbref2, { totalviews: v }).then(() => {
+                           console.log("updated")
+                        });
+                     }
+                  }
+               }
+            }
+            )
+            update(dbref2, { viewsnow: 0 }).then(() => { });
 
 
          }
@@ -180,12 +185,28 @@
       v.addEventListener("emptied", () => {
          var dbref2 = ref(db, "channels/" + key);
          update(dbref2, { state: false });
+         get(child(dbref, "channels")).then((snapshot) => {
+            if (snapshot != null) {
+               var channel = snapshot.val();
+               for (var i = 0; i < Object.values(channel).length; i++) {
+                  if (Object.values(channel)[i]["userid"] == streamerid && Object.values(channel)[i]["channel-name"] == channelname) {
+                     var v = Object.values(channel)[i]["totalviews"] + Object.values(channel)[i]["viewsnow"];
+                     console.log(v);
+                     update(dbref2, { totalviews: v }).then(() => {
+                        console.log("updated")
+                     });
+                  }
+               }
+            }
+         }
+         )
+         update(dbref2, { viewsnow: 0 }).then(() => { });
 
 
       })
 
-
    </script>
+
 
 
    <%- include("footer.ejs") %>

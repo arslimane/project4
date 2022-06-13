@@ -1,4 +1,5 @@
 function startv(streamerid){
+  console.log(streamerid);
 const peer2 = new Peer();
 const v2 = document.getElementById("video-recived");
 

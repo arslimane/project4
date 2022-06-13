@@ -216,11 +216,11 @@ var cryptedkey=CryptoJS.AES.encrypt(uid,"Secret Passphrase");
       "listsub":list,
       "totalviews":0,
       "viewsnow":0,
-      "key":cryptedkey.key,
-      "access":cryptedkey,
+      "key":"h",
+      "access":uid,
       "date":monthNames[date.getMonth()]+" "+date.getDate()+","+date.getFullYear()
    }).then(()=>{alert("data stored scussfuly");
-   window.location.href="https://localhost:8001/index";}
+   window.location.href=window.location.origin+"/index";}
    ).catch(err=>{
       alert("unsuccessful,error"+err);
      

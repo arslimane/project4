@@ -1,0 +1,41 @@
+# Query: localhost
+
+20 results - 9 files
+
+views\account.ejs:
+  100:             a.setAttribute("href", "https://192.168.43.182:8001/video-page-recieve?id=" + objs[i]["userid"] + "&name=" + objs[i]["channel-name"]);
+  190:                      a.setAttribute("href", "https://192.168.43.182:8001/video-page-recieve?id=" + Object.values(channel)[j]["userid"] + "&name=" + Object.values(channel)[j]["channel-name"]);
+
+views\categories.ejs:
+  69:                   a.setAttribute("href", "https://192.168.43.182:8001/channels?id=" + streamerid + "&search=" + Object.values(channel)[i]["name"]);
+
+views\channels.ejs:
+   54:                                 a.setAttribute("href","https://192.168.43.182:8001/video-page-recieve?id="+objs[i]["userid"]+"&name="+objs[i]["channel-name"]);
+  144:                                  a.setAttribute("href","https://192.168.43.182:8001/video-page-send?id="+Object.values(channel)[j]["userid"]+"&name="+Object.values(channel)[j]["channel-name"]);
+  147:                                  a.setAttribute("href","https://192.168.43.182:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]+"&name="+Object.values(channel)[j]["channel-name"]);
+  222:                                  a.setAttribute("href","https://192.168.43.182:8001/video-page-send?id="+Object.values(channel)[j]["userid"]+"&name="+Object.values(channel)[j]["channel-name"]);
+  225:                                  a.setAttribute("href","https://192.168.43.182:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]+"&name="+Object.values(channel)[j]["channel-name"]);
+  274:                                  a.setAttribute("href","https://192.168.43.182:8001/video-page-send?id="+Object.values(channel)[j]["userid"]+"&name="+Object.values(channel)[j]["channel-name"]);
+  277:                                  a.setAttribute("href","https://192.168.43.182:8001/video-page-recieve?id="+Object.values(channel)[j]["userid"]+"&name="+Object.values(channel)[j]["channel-name"]);
+
+views\create-channel.ejs:
+  223:    window.location.href="https://192.168.43.182:8001/index";}
+
+views\forgot-password.ejs:
+  113:                window.location.href="https://192.168.43.182:8001/login";
+
+views\header.ejs:
+  179:                   window.location.href = "https://192.168.43.182:8001/channels?id=" + streamerid + "&search=" + st.value.replaceAll(" ", "+");
+  202:                            a.setAttribute("href", "https://192.168.43.182:8001/video-page-recieve?id=" + Object.values(channel2)[j]["userid"] + "&name=" + Object.values(channel2)[j]["channel-name"]);
+
+views\index.ejs:
+  135:                   a.setAttribute("href", "https://192.168.43.182:8001/channels?id=" + streamerid + "&search=" + Object.values(channel)[i]["name"]);
+  211:                      play.setAttribute("href", "https://192.168.43.182:8001/video-page-recieve?id=" + Object.values(channel)[j]["userid"] + "&name=" + Object.values(channel)[j]["channel-name"]);
+  216:                      a.setAttribute("href", "https://192.168.43.182:8001/video-page-recieve?id=" + Object.values(channel)[j]["userid"]);
+
+views\settings.ejs:
+  403:    window.location.href="https://192.168.43.182:8001/index";}
+
+views\subscriptions.ejs:
+   89:                               a.setAttribute("href","https://192.168.43.182:8001/video-page-recieve?id="+objs[i]["userid"]+"&name="+objs[i]["channel-name"]);
+  157:                               a.setAttribute("href","https://192.168.43.182:8001/video-page-recieve?id="+Object.values(channel)[i]["userid"]+"&name="+Object.values(channel)[i]["channel-name"]);
