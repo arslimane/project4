@@ -147,6 +147,15 @@
             <script type="module">
                var clientid = "<%- idc %>"
                var streamerid = "<%- id %>";
+               var k = 0;
+               var numberofchannel = 0;
+               var stream = document.getElementById("stream");
+               var name;
+               var listno = document.getElementById("listnot");
+               var notification = document.getElementById("notification");
+               var obj = [];
+               var stream = document.getElementById("stream");
+               var search = document.getElementById("search");
                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
                import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
 
@@ -167,40 +176,35 @@
                import { getDatabase, ref, get, set, child, update, remove, push } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-database.js";
                const db = getDatabase();
                const dbref = ref(db);
-               var numberofchannel = 0;
-               var search = document.getElementById("search");
+               
+
                search.addEventListener("click", () => {
                   var st = document.getElementById("st");
                   window.location.href = window.location.origin+"/channels?id=" + streamerid + "&search=" + st.value.replaceAll(" ", "+");
                })
-
-               var name = ""
-               var obj = [];
+              
                get(child(dbref, "channels")).then((snapshot2) => {
                   if (snapshot2 != null) {
                  
                      var channel2 = snapshot2.val();
                      if (channel2 != null) {
                        
-                        var listno = document.getElementById("listnot");
-                        var notification = document.getElementById("notification");
+           
                         var child2 = listno.lastElementChild;
                         while (child2) {
                            listno.removeChild(child2);
                            child2 = listno.lastElementChild;
                         }
-                        var k = 0;
-                        var numberofchannel = 0;
-                     
-                        var name;
+                        
                         for (var i = 0; i < Object.values(channel2).length; i++) {
+                            obj.push(Object.values(channel2)[i])
                            if (Object.values(channel2)[i]["userid"] == clientid) {
                               numberofchannel++;
                               name=Object.values(channel2)[i]["channel-name"];
                            }
                         }
                        
-                        var stream = document.getElementById("stream");
+                        
 
                         if (numberofchannel == 1) {
                            stream.setAttribute("href", "video-page-send?id=" + clientid+"&name="+name);
@@ -211,18 +215,16 @@
 
                         
                  
-                        for (var j = 0; j < Object.values(channel2).length; j++) {
-                           obj.push(Object.values(channel2)[j])
-                           
-                           if (Object.values(channel2)[j]["listsub"].includes(clientid) && Object.values(channel2)[j]["state"] == true) {
+                        for (var j = 0; j < obj.length; j++) {
+                           if (obj[j]["listsub"].includes(clientid) && obj[j]["state"] == true) {
                               k++;
                               var a = document.createElement("a");
                               a.setAttribute("class", "dropdown-item");
-                              a.setAttribute("href", window.location.origin+"/video-page-recieve?id=" + Object.values(channel2)[j]["userid"] + "&name=" + Object.values(channel2)[j]["channel-name"]);
+                              a.setAttribute("href", window.location.origin+"/video-page-recieve?id=" + obj[j]["userid"] + "&name=" + obj[j]["channel-name"]);
                               var i = document.createElement("i");
                               i.setAttribute("class", "fas fa-bullhorn");
                               a.append(i);
-                              var t = document.createTextNode(Object.values(channel2)[j]["channel-name"] + " is live now");
+                              var t = document.createTextNode(obj[j]["channel-name"] + " is live now");
                               a.append(t);
                               listno.append(a);
 
@@ -234,7 +236,7 @@
 
                      }else {
                   
-                     var stream = document.getElementById("stream");
+                     
 
                         stream.setAttribute("href", "create-channel");
                   }
@@ -243,7 +245,7 @@
                )
 
 
-
+               
                get(child(dbref, "category")).then((snapshot) => {
                   if (snapshot != null) {
                      var channel = snapshot.val();

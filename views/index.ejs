@@ -118,10 +118,6 @@
                var divm = document.getElementById("here");
                var div = document.createElement("div");
                div.setAttribute("class", "owl-carousel owl-carousel-category owl-theme");
-
-
-
-
                for (var i = 0; i < Object.values(channel).length; i++) {
 
                   var owlitem = document.createElement("div");
@@ -204,8 +200,10 @@
                      divcol.setAttribute("class", "col-xl-3 col-sm-6 mb-3");
                      var divcard = document.createElement("div");
                      divcard.setAttribute("class", "video-card");
+                     divcard.setAttribute("style", "width: 279px;height:350px");
                      var divcardimage = document.createElement("div");
                      divcardimage.setAttribute("class", "video-card-image");
+                     divcardimage.setAttribute("style", "width: 279px;height:279px");
                      var play = document.createElement("a");
                      play.setAttribute("class", "play-icon");
                      play.setAttribute("href", window.location.origin+"/video-page-recieve?id=" + Object.values(channel)[j]["userid"] + "&name=" + Object.values(channel)[j]["channel-name"]);
@@ -222,15 +220,12 @@
                      divcardimage.append(a);
                      divcard.append(divcardimage);
                      divcol.append(divcard);
-
                      var divbody = document.createElement("div");
                      divbody.setAttribute("class", "video-card-body");
                      var divtitle = document.createElement("div");
                      divtitle.setAttribute("class", "video-title");
                      divtitle.innerHTML = "<a href='#'>" + Object.values(channel)[j]["channel-name"] + "</a>";
-
                      divbody.append(divtitle);
-
                      var divsc = document.createElement("div");
                      divsc.setAttribute("class", "video-page text-success");
                      divsc.innerHTML = Object.values(channel)[j]["categories"] + '  <a title="" data-placement="top" data-toggle="tooltip" href="#" data-original-title="Verified"><i class="fas fa-check-circle text-success"></i></a>'

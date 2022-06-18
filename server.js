@@ -243,10 +243,11 @@ app.get('/channels', (req, res) => {
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then((userData) => {
       var t;
+      var s=req.query.search;
       if(req.query.state!=null) t="s" ; else t="nos";
-      if(req.query.search!=null) t="search";
-    
-      res.render('channels',{idc:userData.uid,id:req.query.id,state:t,search:req.query.search});
+      if(req.query.search!=null) {t="search";
+      s= s.replace("%20"," ");}
+      res.render('channels',{idc:userData.uid,id:req.query.id,state:t,search:s});
     })
     .catch((error) => {
       res.redirect("/login");

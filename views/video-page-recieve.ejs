@@ -81,8 +81,14 @@
              var key;
              var nbss=0;
              var listsub;
-             
              var sbb=document.getElementById("Subscribe");
+             var tags=document.getElementById("tag");
+             var title=document.getElementById("title");
+             var image=document.getElementById("image");
+             var about=document.getElementById("about");
+             var nbs=document.getElementById("sub");
+             var cast=document.getElementById("cast");
+             var category=document.getElementById("category");
 
              sbb.addEventListener("click",()=>{
                get(child(dbref, "channels")). then((snapshot)=>{
@@ -146,56 +152,56 @@
              
              get(child(dbref, "channels")). then((snapshot)=>{
                 if(snapshot!=null){
-                   var channel=snapshot.val();
+                   var ch=snapshot.val();
                   
-                   for(var i=0;i<Object.values(channel).length;i++){
-                      if((Object.values(channel)[i]["userid"]==streamerid) &&(Object.values(channel)[i]["channel-name"]==channel_name)){
-                        var accesscrypted =Object.values(channel)[i]["access"]
+                   for(var h=0;h<Object.values(ch).length;h++){
+                      if((Object.values(ch)[h]["userid"]==streamerid) &&(Object.values(ch)[h]["channel-name"]==channel_name)){
+                        var accesscrypted =Object.values(ch)[h]["access"]
                           var access=accesscrypted;
-                          if(Object.values(channel)[i]["listsub"].includes(clientid)){
-                           var dbref2 = ref(db, "channels/" + Object.keys(channel)[i]);
-                           var v=Object.values(channel)[i]["viewsnow"];
+                          if(Object.values(ch)[h]["listsub"].includes(clientid)){
+                          
+                           var dbref2 = ref(db, "channels/" + Object.keys(ch)[h]);
+                           var v=Object.values(ch)[h]["viewsnow"];
                      
                            v++;
                            update(dbref2, { viewsnow: v }).then(() => { });
                        
-                           var k=Object.values(channel)[i]["key"];
+                           var k=Object.values(ch)[h]["key"];
                                 access=CryptoJS.AES.decrypt(accesscrypted,k.toString()).toString(CryptoJS.enc.Utf8);
                                 startv(access);
                           }
                           
                          
                        
-                         var title=document.getElementById("title");
-                         title.innerText=Object.values(channel)[i]["channel-name"];
-                         var image=document.getElementById("image");
-                         image.setAttribute("src",Object.values(channel)[i]["imageurl"]);
+                         
+                         title.innerText=Object.values(ch)[h]["channel-name"];
+                         image.setAttribute("src",Object.values(ch)[h]["imageurl"]);
                          var d=document.getElementById("date");
-                         d.innerText='Published on '+Object.values(channel)[i]["date"];
+                         d.innerText='Published on '+Object.values(ch)[h]["date"];
                          var type="";
-                              var sub=Object.values(channel)[i]["sub"]
+                              var sub=Object.values(ch)[h]["sub"]
                               if(sub>=1000000){sub=sub /1000000;type="M"}else{
                                  if(sub>=1000){sub=sub /1000;type="K"}
                               }
-                        var nbs=document.getElementById("sub");
+                       
                         nbs.innerText=sub+type+" subscribers";
-                        if(Object.values(channel)[i]["listsub"].includes(clientid)){
+                        if(Object.values(ch)[h]["listsub"].includes(clientid)){
                            var sbb=document.getElementById("Subscribe");
                            sbb.innerHTML="Unsubscribe";
                             sbb.setAttribute("value","Unsubscribe");
                         }
    
                          var cast=document.getElementById("cast");
-                         cast.innerText=Object.values(channel)[i]["cast"];
+                         cast.innerText=Object.values(ch)[h]["cast"];
    
-                         var category=document.getElementById("category");
-                         category.innerText=Object.values(channel)[i]["categories"];
+                        
+                         category.innerText=Object.values(ch)[h]["categories"];
                      
-                         var about=document.getElementById("about");
-                         about.innerText=Object.values(channel)[i]["about"];
+                         
+                         about.innerText=Object.values(ch)[h]["about"];
    
-                         var tags=document.getElementById("tag");
-                        var t=Object.values(channel)[i]["tags"];
+                        
+                        var t=Object.values(ch)[h]["tags"];
                         var t2=t.split(",");
                         for(var i=0;i<t2.length;i++){
                           tags.innerHTML=tags.innerHTML+"<span><a href='#'>"+t2[i]+"</a></span>&nbsp;";
